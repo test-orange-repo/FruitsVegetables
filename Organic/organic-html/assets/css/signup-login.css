@@ -363,11 +363,28 @@ body {
     }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 428px) {
     .sign-up {
         height: 80%;
     }
     .input-group input {
         padding: 10px 20px;
     }
+    .text h2{
+        font-size: 30px;
+    }
+}
+
+.errorCont {
+    display: flex;
+    justify-content: center;
+}
+
+.signup-signin-error {
+    display: block;
+    background:#F2DEDE;
+    color:#A94442 ;
+    padding: 5px;
+    width: 95%;
+    border-radius: 5px;
 }
