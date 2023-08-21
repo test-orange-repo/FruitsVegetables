@@ -335,7 +335,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.23/dist/sweetalert2.min.css
                         <td>
                           <ul class="btns_group ul_li" style="justify-content: center; -webkit-box-pack: center;">
                             <li style="width:25%; height: 5%">
-                              <a class="circle-container" href="./viewOrderDToUser.php?order_id=<?php echo $record["order_id"]; ?>" style="border: 0px">
+                              <a class="circle-container" href="./viewOrdersToUser.php?order_id=<?php echo $record["order_id"]; ?>" style="border: 0px">
                                 <i class="fas fa-columns position-relative " data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                 </i>
                               </a>

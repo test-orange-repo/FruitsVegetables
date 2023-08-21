@@ -13,7 +13,7 @@ include('./process_pages/database.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home V.4 - Organic - Food E-commerce HTML Template</title>
+    <title>Organic</title>
     <!-- favicon icon -->
     <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
 
@@ -357,12 +357,10 @@ include('./process_pages/database.php');
                                         </h2>
                                     </div>
                                     <div class="sale2_desc">
-                                        <p>Morbi eget congue lectus. Donec eleifend ultricies urna et euismod. Sed
-                                            consectetur tellus eget odio aliquet, vel vestibulum tellus sollicitudin.
-                                            Morbi maximus metus eu eros tincidunt.</p>
+                                        <p>Indulge in a sensational shopping experience at our fruits and vegetables sales, where savings bloom as brilliantly as our produce! With discounts soaring up to a remarkable 68%, you can feast on a rainbow of freshness without emptying your wallet</p>
                                     </div>
                                     <div class="countdown_box2 py-2">
-                                        <ul class="countdown_timer2 ul_li" data-countdown="2022/12/24"></ul>
+                                        <ul class="countdown_timer2 ul_li"data-countdown="2023/8/24"></ul>
                                     </div>
                                     <div class="sale2_btn load_more_1">
                                         <a href="#!"><button type="button" class="btn custom_btn rounded-pill px-5 py-3  text-white">Explore More
