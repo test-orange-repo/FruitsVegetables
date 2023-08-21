@@ -3,6 +3,7 @@ include('./database.php');
 
 session_start();
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
@@ -46,18 +47,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $updateStmt->close();
     $conn->close();
 
-    $from_cart = intval($_GET["fromCart"]); // Get the value of is_from_cart from the session
 
     if ($flag) {
+
         $_SESSION["user_id"] = $user["user_id"];
+        header('Location: ../index-4.php');
+        exit();     
         
-        if ($from_cart) {
-            header('Location: ../cart.php?=5');
-            exit();
-        } else {
-            header('Location: ../index-4.php');
-            exit();
-        }
     } else {
         $_SESSION["loginError"] = "Email or Password incorrect";
         header('Location: ../signup-login.php');

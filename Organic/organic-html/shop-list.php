@@ -51,7 +51,7 @@ $productsQuery = mysqli_query($conn, "SELECT * FROM products WHERE category_id =
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop List - Organic - Food E-commerce HTML Template</title>
+    <title>Organic</title>
     <!-- favicon icon -->
     <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
 
@@ -157,7 +157,6 @@ $productsQuery = mysqli_query($conn, "SELECT * FROM products WHERE category_id =
                         //$productImage =  $row['product_image'];
                         $productName = $row['product_name'];
                         $productPrice = $row['product_price'];
-                        $productQuantity = $row["product_quantity"];
 
 
                         echo '<div class="col-sm-6 col-lg-3">
@@ -178,7 +177,7 @@ $productsQuery = mysqli_query($conn, "SELECT * FROM products WHERE category_id =
                         <i class="fa-solid fa-eye fa-lg" style="color: #080808;"></i>
                         </a>
                     </li>
-                    <li><a class="tooltips" data-placement="top" title="Add To Cart" href="cart.php?id=' . $row["product_id"] . '"><i class="fas fa-shopping-bag"></i></a></li>
+                    <li><a class="tooltips" data-placement="top" title="Add To Cart" href="./cart.php?id=' . $row["product_id"] . '"><i class="fas fa-shopping-bag"></i></a></li>
                 </ul>
             </div>
             <div class="rating_wrap d-flex">
@@ -199,10 +198,7 @@ $productsQuery = mysqli_query($conn, "SELECT * FROM products WHERE category_id =
                     <span class="sale_price pe-1">' . $productPrice . 'JD' . '</span>
                     
                 </span>
-                <span class="product_quantity">
-                    <span class="number pe-1">' . $productQuantity . ' Left' . '</span>
-                    
-                </span>
+
             </div>
         </div>
     </div>

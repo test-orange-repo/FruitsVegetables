@@ -2,9 +2,8 @@
 
 include('./process_pages/database.php');
 
-
 $discount = false;
-
+$_SESSION['current_url'] = $_SERVER['REQUEST_URI'];
 if (isset($_POST['code'])) {
 
     $discountPercentage = 0;
@@ -38,7 +37,7 @@ if (isset($_POST['code'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - Organic - Food E-commerce HTML Template</title>
+    <title>Cart</title>
     <!-- favicon icon -->
     <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
 
@@ -91,6 +90,8 @@ if (isset($_POST['code'])) {
         $ID = $_GET["id"] ?? 0;
         $quantity = 1;
 
+        
+
         if (isset($_SESSION["user_id"])) {
             $userID = $_SESSION["user_id"];
         }
@@ -99,9 +100,6 @@ if (isset($_POST['code'])) {
             $_SESSION['cart'] = array();
         }
 
-        echo "<pre>";
-            print_r($_SESSION["cart"]);
-        echo "</pre>";
 
         $existingProductId = array_column($_SESSION["cart"], "productID");
 
@@ -113,7 +111,6 @@ if (isset($_POST['code'])) {
                 "quantity" => $quantity
             );
         }
-
 
         ?>
 
@@ -180,14 +177,16 @@ if (isset($_POST['code'])) {
 
                                         $totalPrice += $subTotalSignleproduct;
 
+                                        $sqll = "UPDATE cart SET cart_totalprice = '$totalPrice'" ;
+
                                 ?>
                                         <!-- ------ -->
                                         <tr>
                                             <td class="thumbnail"><a href="product-details.php">
-                                                    <?php echo '<img src="data:image/webp;base64,' .
+                                                    <?php echo '<img style="width:150px" src="data:image/webp;base64,' .
                                                         base64_encode($product_image) . '" alt="product image" />'; ?>
                                                 </a></td>
-                                            <td class="name"> <a href="product-details.php">
+                                            <td class="name"> <a style="color: black;" href="product-details.php">
                                                     <?php echo $product_name ?>
                                                 </a></td>
                                             <td class="price"><span>

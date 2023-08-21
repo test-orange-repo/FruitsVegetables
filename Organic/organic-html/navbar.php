@@ -21,7 +21,7 @@ if (isset($_SESSION["user_id"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home V.4 - Organic - Food E-commerce HTML Template</title>
+    <title>Organic</title>
     <!-- favicon icon -->
     <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
 
@@ -222,7 +222,7 @@ if (isset($_SESSION["user_id"])) {
                     <div class="collapse navbar-collapse border-end justify-content-center" id="navbarSupportedContent">
                         <ul class="navbar-nav navbar_4 main_menu_list after_navbar">
                             <li class="nav-item nav_item_has_child px-2 dropdown">
-                                <a class="nav-link active" aria-current="page" href="index-4.php" id="home_submenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
+                                <a class="nav-link active" aria-current="page" href="./index-4.php" id="home_submenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
 
                             </li>
                             <li class="nav-item nav_item_has_child px-2 dropdown">
