@@ -1,7 +1,5 @@
 <?php
 
-
-
 include('./process_pages/database.php');
 
 session_start();
@@ -25,7 +23,7 @@ if (isset($_SESSION["user_id"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Organic - Food E-commerce HTML Template</title>
+    <title>Checkout</title>
     <!-- favicon icon -->
     <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
 
@@ -78,93 +76,6 @@ if (isset($_SESSION["user_id"])) {
         <!-- main body start -->
         <main>
 
-            <!-- sidebar section start -->
-            <section class="sidebar_section">
-                <div class="sidebar_content_wrap">
-                    <div class="container">
-                        <div class="row">
-                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                                <div class="offcanvas-header align-items-center">
-                                    <h5 class="mb_0">Organic Product</h5>
-                                    <button type="button" class="btn-close text-reset text-end" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                </div>
-                                <div class="offcanvas-body">
-                                    <div class="prdc_ctg_product_content mt-1 d-flex align-items-center">
-                                        <div class="prdc_ctg_product_img d-flex justify-content-center align-items-center me-3">
-                                            <img src="assets/images/category/cat6.png" alt="image_not_found">
-                                        </div>
-                                        <div class="prdc_ctg_product_text">
-                                            <div class="prdc_ctg_product_title my-2">
-                                                <h5>Organic Cabbage</h5>
-                                            </div>
-                                            <div class="prdc_ctg_product_price mt-1 product_price">
-                                                <span class="sale_price pe-1">$50.00</span>
-                                                <del>$70.00</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="prdc_ctg_product_content mt-1 d-flex align-items-center">
-                                        <div class="prdc_ctg_product_img d-flex justify-content-center align-items-center me-3">
-                                            <img src="assets/images/category/cat7.png" alt="image_not_found">
-                                        </div>
-                                        <div class="prdc_ctg_product_text">
-                                            <div class="prdc_ctg_product_title my-2">
-                                                <h5>Organic Cabbage</h5>
-                                            </div>
-                                            <div class="prdc_ctg_product_price mt-1 product_price">
-                                                <span class="sale_price pe-1">$40.00</span>
-                                                <del>$60.00</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="prdc_ctg_product_content mt-1 d-flex align-items-center">
-                                        <div class="prdc_ctg_product_img d-flex justify-content-center align-items-center me-3">
-                                            <img src="assets/images/category/cat8.png" alt="image_not_found">
-                                        </div>
-                                        <div class="prdc_ctg_product_text">
-                                            <div class="prdc_ctg_product_title my-2">
-                                                <h5>Organic Cabbage</h5>
-                                            </div>
-                                            <div class="prdc_ctg_product_price mt-1 product_price">
-                                                <span class="sale_price pe-1">$70.00</span>
-                                                <del>$90.00</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="total_price">
-                                        <ul class="ul_li_block mb_30 clearfix">
-                                            <li>
-                                                <span>Subtotal:</span>
-                                                <span>$215</span>
-                                            </li>
-                                            <li>
-                                                <span>Vat 5%:</span>
-                                                <span>$10.75</span>
-                                            </li>
-                                            <li>
-                                                <span>Discount 15%:</span>
-                                                <span>- $32.25</span>
-                                            </li>
-                                            <li>
-                                                <span>Total:</span>
-                                                <span>$191.8875</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="sidebar_btns">
-                                        <ul class="btns_group ul_li_block clearfix">
-                                            <li><a href="cart.html">View Cart</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- sidebar section end -->
-
             <!-- Breadcrumb section start -->
             <section class="breadcrumb_sec_1 position-relative">
                 <div class="breadcrumb_wrap sec_space_mid_small" style="background-image: url(assets/images/breadcrumb/breadcrumb1.png);">
@@ -203,7 +114,7 @@ if (isset($_SESSION["user_id"])) {
                                 </select>
                             </div>
                         </div>
-                        <form action="./process_pages/placeOrder.php" method="POST">
+                        <form action="./placeOrder.php" method="POST">
                             <div class="form_wrap">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -253,7 +164,7 @@ if (isset($_SESSION["user_id"])) {
                     </div>
                     <div class="billing_form" data-aos="fade-up" data-aos-duration="2000">
                         <h3 class="form_title mb_30">Your order</h3>
-                        
+
                             <div class="form_wrap">
                                 <div class="checkout_table table-responsive">
                                     <table class="table text-center mb_50">
@@ -266,91 +177,77 @@ if (isset($_SESSION["user_id"])) {
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php
+
+                                            $cartSubTotal = 0;
+                                            // $query = "SELECT  users.* , cartproduct.*, cart.*
+                                            //             FROM cart 
+                                            //             INNER JOIN cartproduct ON cart.cart_id = cartproduct.cart_id 
+                                            //             INNER JOIN users ON cart.user_id = users.user_id";
+
+                                            // $cart = mysqli_query($conn, $query);                                            
+                                            // while($record = mysqli_fetch_array($cart)){
+
+                                            $query1 = "SELECT cart.*, users.*
+                                                        FROM cart 
+                                                        INNER JOIN users ON cart.user_id = users.user_id";// we have to get the user id from the SESSION*******
+                                            $cart = mysqli_query($conn, $query1);
+
+                                            $query2 = "SELECT cart.*, cartproduct.*
+                                                        FROM cart 
+                                                        INNER JOIN cartproduct ON cart.cart_id  = cartproduct.cart_id ";
+                                            $cartP = mysqli_query($conn, $query2);           
+                                            ///////////////////////////////////////////
+                                            $query3 = "SELECT products.*, cartproduct.*
+                                                        FROM products 
+                                                        INNER JOIN cartproduct ON products.product_id  = cartproduct.product_id ";           
+                                            $cartProduct = mysqli_query($conn, $query3);
+
+                                            
+
+                                            while($record = mysqli_fetch_array($cartProduct)){
+                                            ?>
                                             <tr>
                                                 <td>
                                                     <div class="cart_product">
                                                         <div class="item_image">
-                                                            <img src="assets/images/cart/cart1.png" alt="image_not_found">
+                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($record['product_image']); ?>"
+                                                                alt="image_not_found">
                                                         </div>
                                                         <div class="item_content">
-                                                            <h4 class="item_title mb_0">Top Curabitur Lectus</h4>
+                                                            <h4 class="item_title mb_0"><?php echo $record["product_name"]; ?></h4>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="price_text">$69.00</span>
+                                                    <span class="price_text"><?php echo $record["product_price"]. ' JOD'; ?></span>
                                                 </td>
                                                 <td>
-                                                    <span class="quantity_text">2</span>
+                                                    <span class="quantity_text"><?php echo $record["product_quantity"]; ?></span>
                                                 </td>
-                                                <td><span class="total_price">$138.00</span></td>
+                                                <td><span class="total_price"><?php echo $record["product_price"] *$record["product_quantity"]; ?></span></td>
+                                                <?php $cartSubTotal += $record["product_price"] *$record["product_quantity"] ?>
                                             </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <div class="cart_product">
-                                                        <div class="item_image">
-                                                            <img src="assets/images/cart/cart2.png" alt="image_not_found">
-                                                        </div>
-                                                        <div class="item_content">
-                                                            <h4 class="item_title mb_0">Dress Lobortis Laculis</h4>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span class="price_text">$69.00</span>
-                                                </td>
-                                                <td>
-                                                    <span class="quantity_text">2</span>
-                                                </td>
-                                                <td><span class="total_price">$138.00</span></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <div class="cart_product">
-                                                        <div class="item_image">
-                                                            <img src="assets/images/cart/cart3.png" alt="image_not_found">
-                                                        </div>
-                                                        <div class="item_content">
-                                                            <h4 class="item_title mb_0">Boot Curabitur Lectus</h4>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span class="price_text">$69.00</span>
-                                                </td>
-                                                <td>
-                                                    <span class="quantity_text">2</span>
-                                                </td>
-                                                <td><span class="total_price">$138.00</span></td>
-                                            </tr>
-
+                                            <?php } ?>
                                             <tr>
                                                 <td></td>
                                                 <td></td>
                                                 <td>
                                                     <span class="subtotal_text">Subtotal</span>
                                                 </td>
-                                                <td><span class="total_price">$414.00</span></td>
+                                                <td><span class="total_price"><?php echo $cartSubTotal ?></span></td>
                                             </tr>
 
                                             <tr>
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <span class="subtotal_text">Shipping</span>
-                                                </td>
-                                                <td class="text-left">
+                                                    <span class="subtotal_text">Shipping Fees</span>
+                                                </td> 
+                                                <td class="text-left" style="padding-left: 150px">
                                                     <div class="checkbox_item mb_15">
-                                                        <label for="shipping_checkbox"><input id="shipping_checkbox" type="checkbox" checked> Free Shipping</label>
-                                                    </div>
-                                                    <div class="checkbox_item mb_15">
-                                                        <label for="flatrate_checkbox"><input id="flatrate_checkbox" type="checkbox"> Flat rate: $15.00</label>
-                                                    </div>
-                                                    <div class="checkbox_item">
-                                                        <label for="localpickup_checkbox"><input id="localpickup_checkbox" type="checkbox"> Local Pickup:
-                                                            $8.00</label>
+                                                        <label for="flatrate_checkbox"><input id="flatrate_checkbox"
+                                                                type="checkbox"> 2 JOD</label>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -362,7 +259,7 @@ if (isset($_SESSION["user_id"])) {
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <span class="total_price">$135.00</span>
+                                                    <span class="total_price"><?php echo $cartSubTotal + 2 .' JOD' ?></span>                                                    
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -372,34 +269,15 @@ if (isset($_SESSION["user_id"])) {
                                 <div class="billing_payment_mathod">
                                     <ul class="ul_li_block clearfix">
                                         <li>
-                                            <div class="checkbox_item mb_15 pl-0">
-                                                <label for="bank_transfer_checkbox"><input id="bank_transfer_checkbox" type="checkbox" checked> Direct Bank Transfer</label>
-                                            </div>
-                                            <p class="mb_0">
-                                                Make your payment directly into our bank account. Please use your Order
-                                                ID as the payment reference. Your order will not be shipped until the
-                                                funds have cleared in our account.
-                                            </p>
-                                        </li>
-
-                                        <li>
-                                            <div class="checkbox_item mb_0 pl-0">
-                                                <label for="check_payments"><input id="check_payments" type="checkbox">Check Payments</label>
-                                            </div>
-                                        </li>
-                                        <li>
                                             <div class="checkbox_item mb_0 pl-0">
                                                 <label for="cash_delivery"><input id="cash_delivery" type="checkbox">
                                                     Cash On Delivery</label>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="checkbox_item mb_0 pl-0">
-                                                <label for="paypal_checkbox"><input id="paypal_checkbox" type="checkbox"> Paypal</label>
-                                            </div>
-                                        </li>
+                                
                                     </ul>
-                                    <button type="submit" class="custom_btn bg_default_red">PLACE ORDER</button>
+                                    <button type="submit" class="custom_btn ">PLACE ORDER</button>
+                                    <?php $cartProduct = 0; ?>
                                 </div>
                             </div>
                         </form>

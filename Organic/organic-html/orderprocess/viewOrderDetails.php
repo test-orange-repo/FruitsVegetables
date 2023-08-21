@@ -106,7 +106,7 @@
     <div class="form-container">
         <?php
 
-        include('../database.php');
+        include('../process_pages/database.php');
         $id = $_GET['order_id'];
         ?>
         <center>

@@ -2,9 +2,8 @@
 
 include('./process_pages/database.php');
 
-
 $discount = false;
-
+$_SESSION['current_url'] = $_SERVER['REQUEST_URI'];
 if (isset($_POST['code'])) {
 
     $discountPercentage = 0;
@@ -38,7 +37,7 @@ if (isset($_POST['code'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - Organic - Food E-commerce HTML Template</title>
+    <title>Cart</title>
     <!-- favicon icon -->
     <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
 
@@ -91,6 +90,8 @@ if (isset($_POST['code'])) {
         $ID = $_GET["id"] ?? 0;
         $quantity = 1;
 
+        
+
         if (isset($_SESSION["user_id"])) {
             $userID = $_SESSION["user_id"];
         }
@@ -99,9 +100,6 @@ if (isset($_POST['code'])) {
             $_SESSION['cart'] = array();
         }
 
-        echo "<pre>";
-            print_r($_SESSION["cart"]);
-        echo "</pre>";
 
         $existingProductId = array_column($_SESSION["cart"], "productID");
 
@@ -113,7 +111,6 @@ if (isset($_POST['code'])) {
                 "quantity" => $quantity
             );
         }
-
 
         ?>
 
@@ -180,14 +177,16 @@ if (isset($_POST['code'])) {
 
                                         $totalPrice += $subTotalSignleproduct;
 
+                                        $sqll = "UPDATE cart SET cart_totalprice = '$totalPrice'" ;
+
                                 ?>
                                         <!-- ------ -->
                                         <tr>
                                             <td class="thumbnail"><a href="product-details.php">
-                                                    <?php echo '<img src="data:image/webp;base64,' .
+                                                    <?php echo '<img style="width:150px" src="data:image/webp;base64,' .
                                                         base64_encode($product_image) . '" alt="product image" />'; ?>
                                                 </a></td>
-                                            <td class="name"> <a href="product-details.php">
+                                            <td class="name"> <a style="color: black;" href="product-details.php">
                                                     <?php echo $product_name ?>
                                                 </a></td>
                                             <td class="price"><span>
@@ -259,141 +258,9 @@ if (isset($_POST['code'])) {
         <!-- main body end -->
 
         <!-- footer section start -->
-        <footer class="footer_section position-relative">
-            <div class="footer_section_wrap sec_top_space_50" style="background-image: url(assets/images/footer/footer.png)">
-                <div class="container">
-                    <div class="footer_top_content d-flex flex-column flex-lg-row justify-content-between align-items-center">
-                        <div class="footer_top_logo">
-                            <a href="about-us.html"><img src="assets/images/logo/logo2.png" alt="image_not_found"></a>
-                        </div>
-                        <div class="footer_top_subs position-relative">
-                            <input class="rounded-pill" type="search" name="search" placeholder="Your Phone Number">
-                            <a href="#!"><button type="button" class="btn custom_btn rounded-pill text-white position-absolute">Subscribe Now <i class="fas fa-long-arrow-alt-right"></i></button></a>
-                        </div>
-                        <div class="footer_top_social">
-                            <ul class="list-unstyled d-flex justify-content-end">
-                                <li class="me-3"><a href="#!"><i class="fab fa-twitter"></i></a></li>
-                                <li class="me-3"><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                                <li class="me-3"><a href="#!"><i class="fab fa-youtube"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="footer_inner_content sec_space_xs_70">
-                        <div class="footer_inner_content_wrap">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="footer_inner_choose_content">
-                                        <div class="footer_inner_choose_title">
-                                            <h4>
-                                                <a href="#!" class="text-white">Why People Like us</a>
-                                            </h4>
-                                        </div>
-                                        <div class="footer_inner_choose_desc pt-2">
-                                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                                ut aliquip ex ea
-                                                commodo. Build your online store with WooCommerce the most popular </p>
-                                        </div>
-                                        <div class="footer_inner_choose">
-                                            <a href="#!"><button type="button" class="btn custom_btn rounded-pill px-4 text-white">View More <i class="fas fa-long-arrow-alt-right"></i></button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="footer_inner_info_content">
-                                        <div class="footer_inner_info_title">
-                                            <h4>
-                                                <a href="#!" class="text-white">Information</a>
-                                            </h4>
-                                        </div>
-                                        <div class="footer_inner_info_item pt-2">
-                                            <ul class="list-unstyled">
-                                                <li><a href="#!">About Us</a></li>
-                                                <li><a href="#!">Delivery Information</a></li>
-                                                <li><a href="#!">Privacy Policy</a></li>
-                                                <li><a href="#!">Terms & Conditions</a></li>
-                                                <li><a href="#!">Return Policy</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="footer_inner_acct_content">
-                                        <div class="footer_inner_acct_title">
-                                            <h4>
-                                                <a href="#!" class="text-white">My Account</a>
-                                            </h4>
-                                        </div>
-                                        <div class="footer_inner_acct_item pt-2">
-                                            <ul class="list-unstyled">
-                                                <li><a href="#!">My Account</a></li>
-                                                <li><a href="#!">Shopping Cart</a></li>
-                                                <li><a href="#!">Wishlist</a></li>
-                                                <li><a href="#!">Order History</a></li>
-                                                <li><a href="#!">International Orders</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="footer_inner_cotc_content">
-                                        <div class="footer_inner_ctc_title">
-                                            <h4>
-                                                <a href="#!" class="text-white">Contact Us</a>
-                                            </h4>
-                                        </div>
-                                        <div class="footer_inner_ctc_info pt-2 text-white">
-                                            <p>Address: <font>1429 Netus Rd, NY 48247</font>
-                                            </p>
-                                            <p>Email: <font>Organi@gmail.com</font>
-                                            </p>
-                                            <p>Phone: <font>(+87) 4886-4174</font>
-                                            </p>
-                                            <div class="footer_inner_payment_ctc">
-                                                <div class="footer_inner_payment_title">
-                                                    <h5 class="text-white">Payment Accepted</h5>
-                                                </div>
-                                                <div class="footer_inner_payment_thumb pt-3">
-                                                    <a href="#!"><img src="assets/images/payment/payment.png" alt="image_not_found"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer_bootom_content">
-                        <div class="footer_bootom_wrap">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="footer_bootom_copyright">
-                                            <p>Copyright © 2022 <font>ORGANI</font> Inc. All rights reserved.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="footer_bootom_privicy_cont d-flex justify-content-center align-items-center">
-                                            <div class="footer_bootom_privicy pe-5">
-                                                <a href="#!">
-                                                    <p class="priv position-relative">Privacy Policy</p>
-                                                </a>
-                                            </div>
-                                            <div class="footer_bootom_terms pe-5">
-                                                <p class="position-relative">Terms of Use</p>
-                                            </div>
-                                            <div class="footer_bootom_refunds">
-                                                <p>Sales and Refunds</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+
+        <?php include('./footer.php') ?>
+        
         <!-- footer section end -->
 
         <!-- view recently products start -->

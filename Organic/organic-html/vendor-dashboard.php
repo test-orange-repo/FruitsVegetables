@@ -5,7 +5,7 @@ session_start();
 // Check if the user is logged in
 if (!isset($_SESSION['admin_logged'])) {
    // Redirect to login page or restricted access page
-   header("Location: login.php");
+   header("Location: ./signup-login.php");
    exit();
 }
 

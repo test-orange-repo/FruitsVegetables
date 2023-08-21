@@ -1,5 +1,6 @@
 <?php
-include('./database.php');
+
+include('./process_pages/database.php');
 
 session_start();
 //------Noor Code
@@ -47,14 +48,16 @@ function newAddress($conn, $first_name, $last_name, $address, $city, $postcode, 
     $stmt->execute();
 }
 
+
+
 //------Marah Code
 //cart table
 $cart = mysqli_query($conn, "SELECT * FROM cart");
 $cartInfo = mysqli_fetch_array($cart);
 
+
+
 //oder table
-$order = mysqli_query($conn, "SELECT * FROM orders");
-$orderInfo = mysqli_fetch_array($order);
 
 //address table
 
@@ -102,7 +105,7 @@ $updateResult2 = mysqli_query($conn, "INSERT INTO orderitems (orderItem_quntity,
         }
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "index-4.html";
+                window.location.href = "./index-4.php";
             }
         });
 </script>

@@ -10,7 +10,7 @@ include('./process_pages/database.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details V.1 - Organic - Food E-commerce HTML Template</title>
+    <title>Organic</title>
     <!-- favicon icon -->
     <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
 
@@ -398,7 +398,7 @@ if (mysqli_num_rows($result) > 0) {
         <div class="product_layout_content bg-white position-relative">
             <div class="product_image_wrap">
                 <a class="product_image d-flex justify-content-center align-items-center"
-                    href="product-detail.html">
+                    href="">
                     <img class="pic-1" src="data:image/png;base64, ' . base64_encode($row['product_image']) . '" alt="image_not_found">
                     <img class="pic-2" src="data:image/png;base64, ' . base64_encode($row['product_image']) . '" alt="image_not_found">
                 </a>
@@ -423,7 +423,7 @@ if (mysqli_num_rows($result) > 0) {
             </div>
             <div class="product_content">
                 <h3 class="product_title">
-                    <a href="product-detail.html">' . $productname . '</a>
+                    <a">' . $productname . '</a>
                 </h3>
                 <div class="product_price">
                     <span class="sale_price pe-1">$' . $productprice . '</span>

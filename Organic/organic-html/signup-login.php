@@ -6,9 +6,9 @@ include('./process_pages/database.php');
 
 session_start();
 
+
 function checkUserExistence($conn, $uname, $uemail, $uphone)
 {
-
 	$result = $conn->query("SELECT user_name, user_email, user_phone FROM users");
 	while ($user = $result->fetch_assoc()) {
 		if ($user["user_name"] == $uname) {
@@ -26,9 +26,8 @@ function checkUserExistence($conn, $uname, $uemail, $uphone)
 	}
 }
 
-function initializeAddess($conn, $userID, $userPhone)
+function initializeAddress($conn, $userID, $userPhone)
 {
-
 	// Set address details to NULL initially
 	$first_name = NULL;
 	$last_name = NULL;
@@ -87,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	if ($stmt->execute()) {
 		$user_id = $conn->insert_id;
-		initializeAddess($conn, $user_id, $phone);
+		initializeAddress($conn, $user_id, $phone);
 		initializeCart($conn, $user_id);
 		header("Location: ./signup-login.php");
 		exit();
@@ -112,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Organic</title>
 	<link rel="stylesheet" href="./assets/css/signup-login.css">
 	<script>
 	</script>
@@ -206,6 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<i class='bx bxs-lock-alt'></i>
 								<input type="password" placeholder="Password" name="loginPassword">
 							</div>
+							<input type="hidden" name="from_cart" value="<?php echo $from_cart; ?>">
 							<button>
 								Sign in
 							</button>

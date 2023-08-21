@@ -28,7 +28,7 @@ $id = $_GET['order_id'];
                         </thead>
                         <tbody>
                             <?php
-                            include('./database.php');
+                            include('./process_pages/database.php');
                             $id = $_GET['order_id'];
                             $query = "SELECT * 
                                         FROM orderitems                  

@@ -1,6 +1,3 @@
-
-
-
 <?php
 session_start();
 
@@ -19,6 +16,10 @@ if(isset($_GET['delid'])) {
     // Optional: Reindex the array to maintain sequential keys
     $_SESSION['cart'] = array_values($_SESSION['cart']);
 }
+
+echo "<pre>";
+print_r($_SESSION["cart"]);
+echo "</pre>";
 
 // Redirect back to the cart page
 header('Location: ./cart.php');
