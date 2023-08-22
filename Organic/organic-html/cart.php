@@ -1,175 +1,3 @@
-33- Sereen Qamhieh
-33_sereenqamhieh
-Online
-
-14-Mohammad alghzawi — Yesterday at 17:14
-هيني خلصت evaluation
-عملت ممتاز
-الحمداله
-11_MarahAbusaleh — Yesterday at 17:14
-ادخل
-ع روم 2
-14-Mohammad alghzawi — Yesterday at 17:34
-Great job everyone, here are the comments we talked about : 
-GitHub 
-edit the organization name to your team name 
-and update the readme file by adding : 
-project description 
-the technologies you used 
-team members 
-links the wireframe and the mockup
-Trello 
-
-
-fix the errors on the website 
-remove the lines around the logo 
-the hamburger menu is just for the mobile view 
-add the eye icon on the password field 
-remove the table from the profile if there are no orders and add a button "shop now" instead 
-add titles for the categories
-14-Mohammad alghzawi — Yesterday at 18:03
-مالك من شكلو مبين في مصيبة
-11_MarahAbusaleh — Yesterday at 18:03
-اقسم بالله اه
-Noor — Yesterday at 18:03
-احا كيف نظراته
-33- Sereen Qamhieh — Yesterday at 18:03
-ما عرفتو شو القصة
-34-shatharababa — Yesterday at 18:04
-يا الله حاسه حالي بباب الحاره
-Noor — Yesterday at 18:04
-احااا
-14-Mohammad alghzawi — Yesterday at 18:04
-اووف
-سكر على السريع
-18 - Omar Ibrahim — Yesterday at 18:04
-بس هيك
-11_MarahAbusaleh — Yesterday at 18:04
-عنجددددد
-Noor — Yesterday at 18:04
-والله ابصر ايش في
-11_MarahAbusaleh — Yesterday at 18:04
-شكله الوضع متوتر الف
-14-Mohammad alghzawi — Yesterday at 18:04
-هيك شكلو
-11_MarahAbusaleh — Yesterday at 18:05
-كل حدا يعمل تحرياته ويشوف شو في 😂
-14-Mohammad alghzawi — Yesterday at 18:05
-بكرا صباح انس رح يكون شكلو
-Noor — Today at 11:42
-add the eye icon on the password field  => DONE
-remove the table from the profile if there are no orders and add a button "shop now" instead  => DONE
-33- Sereen Qamhieh — Today at 11:43
-modify the comment => Done
-Noor — Today at 12:36
-https://drawsql.app/teams/group-2-7/diagrams/fruits-and-vegetables
-DrawSQL
-Fruits and Vegetables | DrawSQL
-Database schema diagram for Fruits and Vegetables.
-Fruits and Vegetables | DrawSQL
-11_MarahAbusaleh — Today at 15:21
-جايز طلععع من عندي ولسا ما حد دخلني 🌝
-14-Mohammad alghzawi — Today at 15:22
-هسا بشوفلك
-الكوتش
-ثواني
-11_MarahAbusaleh — Today at 15:23
-إذا ما حدا رد عليك احكيلي ابعت لكوتش هلا
-14-Mohammad alghzawi — Today at 15:24
-كوتش هلا بنادي عليها مش موجودة
-وكوتش سجود نفس الاشي
-هسا بشوف كوتش ايمن
-ثواني بس
-ولا كوتش ايمن
-ههههههههههه
-11_MarahAbusaleh — Today at 15:25
-ممتاز 😂😂😂😂
-14-Mohammad alghzawi — Today at 15:26
-وما غي عند اي كوتش اي طالب
-ولا حتى تعون الزرقاء
-كمان دقيقتين باخذ لفة ثانية عليهم
-11_MarahAbusaleh — Today at 15:26
-خلص بعتت واتساب لكوتش هلا
-شكرااا محمد
-14-Mohammad alghzawi — Today at 15:27
-ولو العفو
-11_MarahAbusaleh — Today at 15:28
-دن رجعت
-14-Mohammad alghzawi — Today at 16:01
-مرحبا 
-انا خلصت كل ال wireframe ما في داعي يعمل هسا
-عملت كل الصفحات
-34-shatharababa — Today at 16:01
-ملكككك الميرو
-33- Sereen Qamhieh — Today at 16:01
-Mohammad UX/UI
-Noor — Today at 16:01
-وححححححححححححححش اخووووووووووووووووووي
-9- Leena Al-Rababah — Today at 17:04
-remove the lines around the logo => done
-the hamburger menu is just for the mobile view => done
-9- Leena Al-Rababah — Today at 17:06
-يعطيك الف عافية جد
-14-Mohammad alghzawi — Today at 17:07
-الله يعافي عمرك ويعطيكي العافية  انت
-14-Mohammad alghzawi — Today at 17:22
-add titles for the categories
-@33- Sereen Qamhieh 
-@34-shatharababa
-dont forget this poin
-point
-33- Sereen Qamhieh — Today at 17:22
-ok
-34-shatharababa — Today at 17:22
-Ok bro
-Noor — Today at 17:47
-خلينا على ال 9 ونص نفتح
-دسكورد مشان نشبك اخر اشي
-18 - Omar Ibrahim — Today at 17:47
-وينكم؟؟
-ليش طلعتو
-Noor — Today at 17:47
-حكوا خلص اللي بده يطلع يطلع
-خلص الدوام
-11_MarahAbusaleh — Today at 17:48
-خلص الدوام عمررر
-11_MarahAbusaleh — Today at 17:48
-ان شاء الله
-18 - Omar Ibrahim — Today at 17:51
-دن ثانكيو يجماعة
-Noor — Today at 18:26
-يجماعة 
-عملت انه اليوزر بس يطلب, يخزن ال address اله 
-و لما يطلب مرة ثانية يرجع يقدر يختار من ال addresses اللي طلب منهم
-و اذا دخل ال addreses نفسه ما يخزنه بال database 
-11_MarahAbusaleh — Today at 18:31
-والله كفوو يا نور
-14-Mohammad alghzawi — Today at 18:32
-يعطيك العافية الهكر الثاني بالاكادميةوفخور فيك اخي😘
-14-Mohammad alghzawi — Today at 18:33
-ان شاء الله
-Noor — Today at 18:58
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Aug 22, 2023 at 05:57 PM... (8 MB left)
-Expand
-fruitsvegetables_3.sql
-8 MB
-34-shatharababa — Today at 19:18
-<?php
-
-include('./process_pages/database.php');
-
-$discount = false;
-
-Expand
-message.txt
-19 KB
-هاد  cart.php
-﻿
 <?php
 
 include('./process_pages/database.php');

@@ -31,9 +31,12 @@ if (isset($_GET['delid'])) {
 
         header("Location: cart.php");
         exit();
+
+
     } else {
 
         echo "Error deleting product from cart.";
     }
+
 }}
 ?>
