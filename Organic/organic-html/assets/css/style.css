@@ -574,9 +574,6 @@ p {
 .btns_group {
   padding: 0px 30px;
 }
-.btns_group li:not(:last-child) {
-  margin-bottom: 10px;
-}
 .btns_group a {
   width: 100%;
   height: 55px;
