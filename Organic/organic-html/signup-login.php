@@ -124,7 +124,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 											} else {
 												echo "sign-in";
 											}
-											session_destroy();
+											//session_destroy();
+											unset($_SESSION['user_id']);
+											unset($_SESSION["errMsg"]);
 											?>">
 		<!-- FORM SECTION -->
 		<div class="row">

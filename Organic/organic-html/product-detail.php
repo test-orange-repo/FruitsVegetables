@@ -298,7 +298,7 @@ if (mysqli_num_rows($result) > 0) {
 
             </div>
                     <form method="post" action="./process_pages/process_comment.php?id='.$product_id.'">
-                    <input type="hidden" name="rating" id="ratingInput" value="0">
+                    <input type="hidden" name="rating" id="ratingInput" value="0" required>
                     <div class="rating_input">
                     <span class="rating_title" style="font-size:30px;">Rating:</span>
                     <ul class="rating_stars " style="color:Green ; ">
@@ -310,7 +310,7 @@ if (mysqli_num_rows($result) > 0) {
                     </ul>
                 </div>
                         <div class="form_item">
-                            <textarea name="comment" placeholder="Your Comment*"></textarea>
+                            <textarea name="comment" placeholder="Your Comment*" required ></textarea>
                         </div>
                         <button type="submit" name="submit" class="btn custom_btn rounded-pill py-3 text-white text-uppercase">
                             Post Comment <i class="fas fa-long-arrow-alt-right"></i>
