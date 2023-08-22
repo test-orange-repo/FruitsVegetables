@@ -294,20 +294,6 @@ if (isset($_SESSION["user_id"])) {
                                     <?php $cartProduct = 0; ?>
                                 </div>
                             </div>
-
-                            <div class="billing_payment_mathod">
-                                <ul class="ul_li_block clearfix">
-                                    <li>
-                                        <div class="checkbox_item mb_0 pl-0">
-                                            <label for="cash_delivery"><input id="cash_delivery" type="checkbox">
-                                                Cash On Delivery</label>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <button type="submit" class="custom_btn ">PLACE ORDER</button>
-                                <?php $cartProduct = 0; ?>
-                            </div>
                         </div>
                         </form>
                     </div>
