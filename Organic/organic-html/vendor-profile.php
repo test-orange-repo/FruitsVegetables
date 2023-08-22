@@ -4,13 +4,10 @@
 
 include('./process_pages/database.php');
 
-<<<<<<< HEAD
 // include('./process_pages/check_if_loggedIn.php');
 
 // hi marah
 
-=======
->>>>>>> 796fcf5d20692fccd3bac5ba3934a4fddc507185
 ?>
 
 
