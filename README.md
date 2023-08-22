@@ -2,7 +2,7 @@
 
 technologies we used are HTMI, CSS, JS, PHP and SQL
 
-Our team:
+<h3> Our team </h3>: <br>
 Mohammad alghzawi (SM) <br> Nooraldeen aloudat(PO) <br> Marah abusaleh <br> Lenna alrababah <br> Serren qamhieh <br> Shatha rababa
 
 
