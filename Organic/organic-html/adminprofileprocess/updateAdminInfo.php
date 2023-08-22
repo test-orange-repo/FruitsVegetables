@@ -202,7 +202,7 @@ if(count($_POST) > 0){
         </div>
         <div class="form-input">
             <label for="adminImage" class="form-label">Admin Image</label>
-            <input type="file" id="adminImage" name="adminImage" value="<?php echo base64_encode($record['admin_img']); ?>">
+            <input type="file" id="adminImage" name="adminImage" value="<?php echo base64_encode($record['admin_img']); ?>" accept="image/*">
         </div>
         <div class="form-button">
             <button type="submit" class="btn custom_btn">Submit</button>
