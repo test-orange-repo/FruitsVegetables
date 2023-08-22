@@ -25,8 +25,7 @@ if (isset($_SESSION["user_id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <!-- favicon icon -->
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
-
+    <link rel="shortcut icon" href="assets/images/logo/logo3.png" type="image/x-icon">
     <!-- Include fontawesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -84,9 +83,8 @@ if (isset($_SESSION["user_id"])) {
                             <h2 class="text-white">Checkout Page</h2>
                         </div>
                         <ul class="list-unstyled breadcrumb_item d-flex justify-content-center align-items-center text-white">
-                            <li><a href="index.html"><i class="fas fa-home active"></i>Home</a></li>
-                            <li><i class="fas fa-chevron-right"></i>About</li>
-                            <li><i class="fas fa-chevron-right"></i>Dried</li>
+                            <li><a href="./index-4.php"><i class="fas fa-home active"></i>Home</a></li>
+                            <li><i class="fas fa-chevron-right"></i>Checkout</li>
                         </ul>
                     </div>
                 </div>
@@ -204,8 +202,9 @@ if (isset($_SESSION["user_id"])) {
 
                                         $query1 = "SELECT cart.*, users.*
                                                         FROM cart 
-                                                        INNER JOIN users ON cart.user_id = users.user_id"; // we have to get the user id from the SESSION*******
-                                        $cart = mysqli_query($conn, $query1);
+                                                        INNER JOIN users ON cart.user_id = users.user_id";// we have to get the user id from the SESSION*******
+                                            $cart = mysqli_query($conn, $query1);
+                                            $recordcart = mysqli_fetch_array($cart);
 
                                         $query2 = "SELECT cart.*, cartproduct.*
                                                         FROM cart 
@@ -264,18 +263,36 @@ if (isset($_SESSION["user_id"])) {
                                             </td>
                                         </tr>
 
-                                        <tr>
-                                            <td class="text-left">
-                                                <span class="subtotal_text">TOTAL</span>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <span class="total_price"><?php echo $cartSubTotal + 2 . ' JOD' ?></span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <span class="subtotal_text">TOTAL</span>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <span class="total_price">
+                                                        <del><?php echo $cartSubTotal + 2 .' JOD' ?></del><br>
+                                                        <?php echo $recordcart['cart_totalprice'] ?>
+                                                    </span>                                                    
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="billing_payment_mathod">
+                                    <ul class="ul_li_block clearfix">
+                                        <li>
+                                            <div class="checkbox_item mb_0 pl-0">
+                                                <label for="cash_delivery"><input id="cash_delivery" type="checkbox">
+                                                    Cash On Delivery</label>
+                                            </div>
+                                        </li>
+                                
+                                    </ul>
+                                    <button type="submit" class="custom_btn ">PLACE ORDER</button>
+                                    <?php $cartProduct = 0; ?>
+                                </div>
                             </div>
 
                             <div class="billing_payment_mathod">
@@ -690,7 +707,7 @@ if (isset($_SESSION["user_id"])) {
     <script src="assets/js/nice-select.min.js"></script>
 
     <!-- Include jquery-countdown js -->
-    <script src="assets/js/countdown.min.js"></script>
+    <script src="assets/js/countdown.min.js"></script></script>
 
     <!-- Include slick js -->
     <script src="assets/js/slick.min.js"></script>

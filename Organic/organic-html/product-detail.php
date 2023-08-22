@@ -10,10 +10,10 @@ include('./process_pages/database.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organic</title>
+    <title>Product Details</title>
     <!-- favicon icon -->
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
-
+    <link rel="shortcut icon" href="assets/images/logo/logo3.png" type="image/x-icon">
+    
     <!-- Include fontawesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
@@ -63,9 +63,8 @@ include('./process_pages/database.php');
                         </div>
                         <ul
                             class="list-unstyled breadcrumb_item d-flex justify-content-center align-items-center text-white">
-                            <li><a href="index.html"><i class="fas fa-home active"></i>Home</a></li>
-                            <li><i class="fas fa-chevron-right"></i>About</li>
-                            <li><i class="fas fa-chevron-right"></i>Dried</li>
+                            <li><a href="./index-4.php"><i class="fas fa-home active"></i>Home</a></li>
+                            <li><i class="fas fa-chevron-right"></i>Product Details</li>
                         </ul>
                     </div>
                 </div>
@@ -298,7 +297,7 @@ if (mysqli_num_rows($result) > 0) {
 
             </div>
                     <form method="post" action="./process_pages/process_comment.php?id='.$product_id.'">
-                    <input type="hidden" name="rating" id="ratingInput" value="0">
+                    <input type="hidden" name="rating" id="ratingInput" value="0" required>
                     <div class="rating_input">
                     <span class="rating_title" style="font-size:30px;">Rating:</span>
                     <ul class="rating_stars " style="color:Green ; ">
@@ -310,7 +309,7 @@ if (mysqli_num_rows($result) > 0) {
                     </ul>
                 </div>
                         <div class="form_item">
-                            <textarea name="comment" placeholder="Your Comment*"></textarea>
+                            <textarea name="comment" placeholder="Your Comment*" required ></textarea>
                         </div>
                         <button type="submit" name="submit" class="btn custom_btn rounded-pill py-3 text-white text-uppercase">
                             Post Comment <i class="fas fa-long-arrow-alt-right"></i>

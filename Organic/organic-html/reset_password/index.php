@@ -8,7 +8,7 @@
 
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/style.css">
-	
+	<link rel="shortcut icon" href="assets/images/logo/logo3.png" type="image/x-icon">
 
 </head>
 

@@ -1,6 +1,6 @@
 <?php
 
-include('../database.php');
+include('../process_pages/database.php');
 
 $result = mysqli_query($conn, "SELECT * FROM admins WHERE admin_id = '" . $_GET['admin_id'] . "' ");
 $record = mysqli_fetch_array($result);
@@ -45,6 +45,7 @@ if(count($_POST) > 0){
 <title>Edit Admin Information</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nicecss@2.1.0/dist/nice.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="shortcut icon" href="assets/images/logo/logo3.png" type="image/x-icon">
 <style>
     body {
         display: flex;
@@ -202,7 +203,7 @@ if(count($_POST) > 0){
         </div>
         <div class="form-input">
             <label for="adminImage" class="form-label">Admin Image</label>
-            <input type="file" id="adminImage" name="adminImage" value="<?php echo base64_encode($record['admin_img']); ?>">
+            <input type="file" id="adminImage" name="adminImage" value="<?php echo base64_encode($record['admin_img']); ?>" accept="image/*">
         </div>
         <div class="form-button">
             <button type="submit" class="btn custom_btn">Submit</button>

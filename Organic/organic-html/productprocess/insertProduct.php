@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productName = $_POST["productName"];
     $productDesc = $_POST["productDesc"];
     $productPrice = $_POST["productPrice"];
-    $productQuantity = $_POST["productQuantity"];
     $categoryName = $_POST["categoryName"];
 
     $result2 = mysqli_query($conn, "SELECT * FROM categories WHERE category_name = '$categoryName'");
@@ -21,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $imageData = addslashes(file_get_contents($productImage));
     // $base64ImageData = base64_decode($imageData);
-    $sql = "INSERT INTO products (product_name, product_description, product_price, product_image, category_id, product_quantity) VALUES ('$productName', '$productDesc', '$productPrice', '$imageData', '$categoryID', '$productQuantity')";
+    $sql = "INSERT INTO products (product_name, product_description, product_price, product_image, category_id) VALUES ('$productName', '$productDesc', '$productPrice', '$imageData', '$categoryID')";
 
     if (mysqli_query($conn, $sql)) { 
         header("Location: ../vendor-dashboard.php");
@@ -41,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <title>Add Product</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nicecss@2.1.0/dist/nice.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="shortcut icon" href="assets/images/logo/logo3.png" type="image/x-icon">
 <style>
     body {
         display: flex;
@@ -193,10 +193,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" id="productPrice" name="productPrice" required>
         </div>
         <div class="form-input">
-            <label for="productQuantity" class="form-label">Product Quantity</label>
-            <input type="text" id="productQuantity" name="productQuantity" required>
-        </div>
-        <div class="form-input">
             <label for="categoryName" class="form-label">Category Name</label>
             <select id="categoryName" name="categoryName">
                 <?php
@@ -209,7 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="form-input">
             <label for="productImage" class="form-label">Product Image</label>
-            <input type="file" id="productImage" name="productImage" required>
+            <input type="file" id="productImage" name="productImage" accept="image/*" required>
         </div>
         
         <div class="form-button">

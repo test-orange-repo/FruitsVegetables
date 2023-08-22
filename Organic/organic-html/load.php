@@ -22,6 +22,7 @@ if (isset($_GET['minusid'])) {
                     $quantity = $item['quantity'];
                 }
             }
+            break;
         }
 
         // Update database if $quantity > 0
