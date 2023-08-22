@@ -31,5 +31,9 @@
             if (result.isConfirmed) {
                 window.location.href = "./signup-login.php"; 
             }
-        });
+        }); 
+
+        window.onclick = () => {
+            window.location.href = "./signup-login.php"; 
+        }
 </script>

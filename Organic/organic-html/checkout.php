@@ -190,6 +190,7 @@ if (isset($_SESSION["user_id"])) {
                                                         FROM cart 
                                                         INNER JOIN users ON cart.user_id = users.user_id";// we have to get the user id from the SESSION*******
                                             $cart = mysqli_query($conn, $query1);
+                                            $recordcart = mysqli_fetch_array($cart);
 
                                             $query2 = "SELECT cart.*, cartproduct.*
                                                         FROM cart 
@@ -257,7 +258,10 @@ if (isset($_SESSION["user_id"])) {
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <span class="total_price"><?php echo $cartSubTotal + 2 .' JOD' ?></span>                                                    
+                                                    <span class="total_price">
+                                                        <del><?php echo $cartSubTotal + 2 .' JOD' ?></del><br>
+                                                        <?php echo $recordcart['cart_totalprice'] ?>
+                                                    </span>                                                    
                                                 </td>
                                             </tr>
                                         </tbody>
