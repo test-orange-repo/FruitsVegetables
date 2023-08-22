@@ -388,3 +388,15 @@ body {
     width: 95%;
     border-radius: 5px;
 }
+
+.sign-up .input-group .fa-eye {
+    position: absolute;
+    cursor: pointer;
+    left: 266px;
+}
+
+@media (max-width: 480px) {
+    .sign-up .input-group .fa-eye {
+        left: 214px;
+    }
+}

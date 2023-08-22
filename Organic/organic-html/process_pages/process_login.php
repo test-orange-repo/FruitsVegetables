@@ -1,11 +1,10 @@
 <?php
+
 include('./database.php');
 
 session_start();
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
 
     $email = $_POST["loginEmail"];
     $password = $_POST["loginPassword"];
@@ -14,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $adminInfo = mysqli_fetch_array($admin);
 
 
+    // Check if the admin is logging in
     if ($email == $adminInfo["admin_email"] && $password == $adminInfo["admin_password"]) {
         $_SESSION['admin_logged'] = 1;
         mysqli_query($conn, "UPDATE admins SET is_loggedIn = '1'");

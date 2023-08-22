@@ -72,3 +72,7 @@ function preventSubmittion(errorMessage) {
     });
   }
 }
+
+// Handle show password
+let showPassword = document.getElementsByClassName("eye-pass");
+

@@ -112,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Organic</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="./assets/css/signup-login.css">
 	<script>
 	</script>
@@ -157,12 +158,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<input type="email" placeholder="Email" name="email" id="email">
 							</div>
 							<div class="input-group">
-								<i class='bx bxs-lock-alt'></i>
 								<input type="password" placeholder="Password" name="password" id="password">
+								<i class="fa-solid fa-eye eye-pass"></i>
 							</div>
 							<div class="input-group">
-								<i class='bx bxs-lock-alt'></i>
 								<input type="password" placeholder="Confirm password" name="confirmPassword" id="confPassword">
+								<i class="fa-solid fa-eye eye-pass"></i>
 							</div>
 							<div class="input-group">
 								<i class='bx bxs-lock-alt'></i>

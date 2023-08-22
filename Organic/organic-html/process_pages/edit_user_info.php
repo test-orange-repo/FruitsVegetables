@@ -21,7 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = $_POST["phone"] ?? "0" . $user["user_phone"];
     $image = $_FILES["image"]["tmp_name"] ?? $user["user_img"];
 
-    $imgData = file_get_contents($image);
+    if (isset($_FILES["image"]["tmp_name"]) && !empty($_FILES["image"]["tmp_name"])) {
+        $newImage = $_FILES["image"]["tmp_name"];
+        $imgData = file_get_contents($newImage);
+    } else {
+        $imgData = $user["user_img"];
+    }
 
     $regexName = '/^[A-Za-z]+$/';
     $regexUsername = '/^[A-Za-z0-9_]+$/';
