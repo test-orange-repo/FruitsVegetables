@@ -74,5 +74,23 @@ function preventSubmittion(errorMessage) {
 }
 
 // Handle show password
-let showPassword = document.getElementsByClassName("eye-pass");
+let showicons = document.getElementsByClassName("eye-pass");
+let passInputs = document.getElementsByClassName('password');
+
+Array.from(showicons).forEach((icon, indx) => {
+  icon.addEventListener('click', () => {
+    if(passInputs[indx].type == "password") {
+      passInputs[indx].type = "text";
+    }
+    else {
+      passInputs[indx].type = "password";
+    }
+  });
+});
+
+
+
+
+
+
 

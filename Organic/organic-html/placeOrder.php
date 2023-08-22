@@ -3,6 +3,8 @@
 include('./process_pages/database.php');
 
 session_start();
+$user_id = $_SESSION["user_id"];
+
 //------Noor Code
 if (isset($_SESSION["user_id"])) {
 
@@ -16,8 +18,6 @@ if (isset($_SESSION["user_id"])) {
         $region = $_POST["region"];
         $phone = $_POST["phone"];
 
-
-        $user_id = $_SESSION["user_id"];
         $stmt = $conn->prepare("SELECT addresses.first_name, addresses.last_name, addresses.address, addresses.city, addresses.postcode, addresses.region, addresses.phone FROM addresses INNER JOIN users ON addresses.user_id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
@@ -28,12 +28,11 @@ if (isset($_SESSION["user_id"])) {
             updateAddress($conn, $first_name, $last_name, $address, $city, $postcode, $region, $phone, $user_id);
         }
         else {
-            newAddress($conn, $first_name, $last_name, $address, $city, $postcode, $region, $phone, $user_id);
+            if(!checkAddressExistence($conn, $first_name, $last_name, $address, $city, $postcode, $region, $phone, $user_id)) {
+                newAddress($conn, $first_name, $last_name, $address, $city, $postcode, $region, $phone, $user_id);
+            }
         }
-
-
     }
-
 }
 
 function updateAddress($conn, $first_name, $last_name, $address, $city, $postcode, $region, $phone, $user_id) {
@@ -46,6 +45,31 @@ function newAddress($conn, $first_name, $last_name, $address, $city, $postcode, 
     $stmt = $conn->prepare("INSERT INTO addresses (first_name, last_name, address, city, postcode, region, phone, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssssssi", $first_name, $last_name, $address, $city, $postcode, $region, $phone, $user_id);
     $stmt->execute();
+}
+
+function checkAddressExistence($conn, $first_name, $last_name, $address, $city, $postcode, $region, $phone, $user_id) {
+    // Prepare a parameterized SQL query
+    $stmt = $conn->prepare("SELECT * FROM addresses WHERE 
+                            first_name = ? AND
+                            last_name = ? AND
+                            address = ? AND
+                            city = ? AND
+                            postcode = ? AND
+                            region = ? AND
+                            phone = ? AND
+                            user_id = ?");
+                            
+    $stmt->bind_param("sssssssi", $first_name, $last_name, $address, $city, $postcode, $region, $phone, $user_id);
+    
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 

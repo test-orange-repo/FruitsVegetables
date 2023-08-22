@@ -3,13 +3,10 @@
 include('./process_pages/database.php');
 
 $discount = false;
-$_SESSION['current_url'] = $_SERVER['REQUEST_URI'];
+
 if (isset($_POST['code'])) {
-
-    $discountPercentage = 0;
-    $discount = "SELECT * FROM discount WHERE discount_text = '" . $_POST['code'] . "'";
-
-    $result = mysqli_query($conn, $discount);
+    $discountQuery = "SELECT * FROM discount WHERE discount_text = '" . $_POST['code'] . "'";
+    $result = mysqli_query($conn, $discountQuery);
 
     if ($result->num_rows > 0) {
         $record = mysqli_fetch_assoc($result);
@@ -19,14 +16,10 @@ if (isset($_POST['code'])) {
         if ($code == $record["discount_text"]) {
             $discount = true;
             $discountPercentage = $record["discount_percentage"];
-        } else {
-            $discountPercentage = 0;
         }
     }
 }
-
 ?>
-
 
 
 
@@ -86,32 +79,7 @@ if (isset($_POST['code'])) {
         <!-- header section start -->
 
         <?php include('./navbar.php');
-
-        $ID = $_GET["id"] ?? 0;
-        $quantity = 1;
-
-        
-
-        if (isset($_SESSION["user_id"])) {
-            $userID = $_SESSION["user_id"];
-        }
-
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = array();
-        }
-
-
-        $existingProductId = array_column($_SESSION["cart"], "productID");
-
-        if (in_array($ID, $existingProductId)) {
-
-        } else {
-            $_SESSION['cart'][] = array(
-                "productID" => $ID,
-                "quantity" => $quantity
-            );
-        }
-
+            
         ?>
 
 
@@ -154,64 +122,122 @@ if (isset($_POST['code'])) {
                             </thead>
                             <tbody>
                                 <?php
+
                                 $totalPrice = 0;
-                                foreach ($_SESSION['cart'] as $product) {
 
-                                    $id = $product["productID"];
-                                    $sql = "SELECT * FROM products WHERE product_id = '$id'";
-                                    $result = mysqli_query($conn, $sql);
+                                if (isset($_SESSION["user_id"])) {
+                                    unset($_SESSION["is_from_cart"]);
+                                    if (isset($_SESSION["cart"])) {
+                                        foreach ($_SESSION['cart'] as $product) {
 
-                                    if ($result && mysqli_num_rows($result) > 0) {
-                                        $row = mysqli_fetch_assoc($result);
-                                        $product_id = $row['product_id'];
-                                        $product_name = $row['product_name'];
-                                        $product_description = $row['product_description'];
-                                        $product_price = $row['product_price'];
-                                        $product_quantity = $product['quantity'];
-                                        $product_image = $row['product_image'];
-                                        $category_id = $row['category_id'];
-                                        // Get the quantity for each single product
-                                        $quan = $product["quantity"];
+                                            $id = $product["productID"];
+                                            $sql = "SELECT * FROM products WHERE product_id = '$id'";
+                                            $result = mysqli_query($conn, $sql);
 
-                                        $subTotalSignleproduct = $quan * $product_price;
+                                            if ($result && mysqli_num_rows($result) > 0) {
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    $product_id = $row['product_id'];
+                                                    $product_name = $row['product_name'];
+                                                    $product_description = $row['product_description'];
+                                                    $product_price = $row['product_price'];
+                                                    $product_quantity = $product['quantity'];
+                                                    $product_image = $row['product_image'];
+                                                    $category_id = $row['category_id'];
+                                                    // Get the quantity for each single product
+                                                    $quan = $product["quantity"];
 
-                                        $totalPrice += $subTotalSignleproduct;
+                                                    $subTotalSignleproduct = $quan * $product_price;
 
-                                        $sqll = "UPDATE cart SET cart_totalprice = '$totalPrice'" ;
+                                                    $totalPrice += $subTotalSignleproduct;
 
-                                ?>
-                                        <!-- ------ -->
-                                        <tr>
+                                                    echo '<tr>
                                             <td class="thumbnail"><a href="product-details.php">
-                                                    <?php echo '<img style="width:150px" src="data:image/webp;base64,' .
-                                                        base64_encode($product_image) . '" alt="product image" />'; ?>
+                                                    <img style="width:150px" src="data:image/webp;base64,' .
+                                                        base64_encode($product_image) . '" alt="product image" />
                                                 </a></td>
                                             <td class="name"> <a style="color: black;" href="product-details.php">
-                                                    <?php echo $product_name ?>
+                                                    ' . $product_name . '
                                                 </a></td>
                                             <td class="price"><span>
-                                                    <?php echo $product_price ?>JD
+                                            ' . $product_price . '
                                                 </span></td>
-
+        
                                             <td class="quantity">
-
+        
                                                 <div class="quantity_input">
-                                                    <a href="load.php?minusid=<?php echo $id ?>"><button type="submit" name="decrement">–</button></a>
-                                                    <input class="input_number" value="<?php echo $product_quantity; ?>" name="quantity">
-                                                    <a href="load.php?plusid=<?php echo $id ?>"><button type="submit" name="increment">+</button></a>
+                                                    <a href="load.php?minusid=' . $id . ' "><button type="submit" name="decrement">–</button></a>
+                                                    <input class="input_number" value=" ' . $product_quantity . '" name="quantity">
+                                                    <a href="load.php?plusid=' . $id . ' "><button type="submit" name="increment">+</button></a>
                                                 </div>
                                             </td>
                                             <td class="subtotal"><span>
-                                                    <?php echo $subTotalSignleproduct ?>JD
+                                            ' . $subTotalSignleproduct . '
                                                 </span></td>
-                                            <td class="remove"><a href="delete_cart.php?delid=<?php echo $id ?>" class="btn">×</a></td>
-                                        </tr>
-                                        <!-- ------ -->
+                                            <td class="remove"><a href="delete_cart.php?delid=' . $id . '" class="btn">×</a></td>
+                                            </tr>';
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
 
-                                <?php
+
+                                if (!isset($_SESSION['user_id'])) {
+                                    if (isset($_SESSION['cart'])) {
+                                        foreach ($_SESSION['cart'] as $product) {
+
+                                            $id = $product["productID"];
+                                            $sql = "SELECT * FROM products WHERE product_id = '$id'";
+                                            $result = mysqli_query($conn, $sql);
+
+                                            if ($result && mysqli_num_rows($result) > 0) {
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    $product_id = $row['product_id'];
+                                                    $product_name = $row['product_name'];
+                                                    $product_description = $row['product_description'];
+                                                    $product_price = $row['product_price'];
+                                                    $product_quantity = $product['quantity'];
+                                                    $product_image = $row['product_image'];
+                                                    $category_id = $row['category_id'];
+                                                    // Get the quantity for each single product
+                                                    $quan = $product["quantity"];
+
+                                                    $subTotalSignleproduct = $quan * $product_price;
+
+                                                    $totalPrice += $subTotalSignleproduct;
+
+                                                    echo '<tr>
+                                                    <td class="thumbnail"><a href="product-details.php">
+                                                            <img style="width:150px" src="data:image/webp;base64,' .
+                                                        base64_encode($product_image) . '" alt="product image" />
+                                                        </a></td>
+                                                    <td class="name"> <a style="color: black;" href="product-details.php">
+                                                            ' . $product_name . '
+                                                        </a></td>
+                                                    <td class="price"><span>
+                                                    ' . $product_price . '
+                                                        </span></td>
+        
+                                                    <td class="quantity">
+        
+                                                        <div class="quantity_input">
+                                                            <a href="load.php?minusid=' . $id . ' "><button type="submit" name="decrement">–</button></a>
+                                                            <input class="input_number" value=" ' . $product_quantity . '" name="quantity">
+                                                            <a href="load.php?plusid=' . $id . ' "><button type="submit" name="increment">+</button></a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="subtotal"><span>
+                                                    ' . $subTotalSignleproduct . '
+                                                        </span></td>
+                                                    <td class="remove"><a href="delete_cart.php?delid=' . $id . '" class="btn">×</a></td>
+                                             </tr>';
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                                 ?>
+
                             </tbody>
                         </table>
                     </div>
@@ -238,6 +264,9 @@ if (isset($_POST['code'])) {
                                                                     if ($discount) {
                                                                         $totalPrice -= ($totalPrice * $discountPercentage);
                                                                         echo number_format($totalPrice, 2);
+                                                                        $user_id = $_SESSION['user_id'];
+                                                                        $sqll = "UPDATE cart SET cart_totalprice = '$totalPrice' WHERE user_id = '$user_id'";
+                                                                        $result1 = mysqli_query($conn, $sqll);
                                                                     } else {
                                                                         echo $totalPrice;
                                                                     }
@@ -259,380 +288,13 @@ if (isset($_POST['code'])) {
 
         <!-- footer section start -->
 
-        <?php include('./footer.php') ?>
-        
         <!-- footer section end -->
 
-        <!-- view recently products start -->
 
-        <div class="modal fade recent_product" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="recent_product_title">Recent Products</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="row g-2">
-                                <div class="col-sm-6 col-lg-4">
-                                    <div class="product_layout_1 overflow-hidden position-relative">
-                                        <div class="product_layout_content bg-white position-relative">
-                                            <div class="product_image_wrap">
-                                                <a class="product_image d-flex justify-content-center align-items-center" href="product-detail.html">
-                                                    <img src="assets/images/product/product9.png" alt="image_not_found">
-                                                </a>
-                                                <ul class="product_badge_group ul_li_block">
-                                                    <li><span class="product_badge badge_meats position-absolute rounded-pill text-uppercase">Meats</span>
-                                                    </li>
-                                                    <li><span class="product_badge badge_discount position-absolute rounded-pill">-27%</span>
-                                                    </li>
-                                                </ul>
-                                                <ul class="product_action_btns ul_li_block d-flex">
-                                                    <li><a class="tooltips" data-placement="top" title="Search Product" href="#!"><i class="fas fa-search"></i></a></li>
-                                                    <li><a class="tooltips" data-placement="top" title="Add To Cart" href="#product_quick_view" data-bs-toggle="modal"><i class="fas fa-shopping-bag"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="rating_wrap d-flex">
-                                                <ul class="rating_star ul_li">
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                </ul>
-                                                <span class="shop_review_text">( 4.0 )</span>
-                                            </div>
-                                            <div class="product_content">
-                                                <h3 class="product_title">
-                                                    <a href="product-detail.html">Organic Cabbage</a>
-                                                </h3>
-                                                <div class="product_price">
-                                                    <span class="sale_price pe-1">$50.00</span>
-                                                    <del>$65.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-4">
-                                    <div class="product_layout_1 overflow-hidden position-relative">
-                                        <div class="product_layout_content bg-white position-relative">
-                                            <div class="product_image_wrap">
-                                                <a class="product_image d-flex justify-content-center align-items-center" href="product-detail.html">
-                                                    <img src="assets/images/product/product10.png" alt="image_not_found">
-                                                </a>
-                                                <ul class="product_badge_group ul_li_block">
-                                                    <li><span class="product_badge badge_meats position-absolute rounded-pill text-uppercase">Meats</span>
-                                                    </li>
-                                                    <li><span class="product_badge badge_discount position-absolute rounded-pill">-27%</span>
-                                                    </li>
-                                                </ul>
-                                                <ul class="product_action_btns ul_li_block d-flex">
-                                                    <li><a class="tooltips" data-placement="top" title="Search Product" href="#!"><i class="fas fa-search"></i></a></li>
-                                                    <li><a class="tooltips" data-placement="top" title="Add To Cart" href="#product_quick_view" data-bs-toggle="modal"><i class="fas fa-shopping-bag"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="rating_wrap d-flex">
-                                                <ul class="rating_star ul_li">
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                </ul>
-                                                <span class="shop_review_text">( 4.0 )</span>
-                                            </div>
-                                            <div class="product_content">
-                                                <h3 class="product_title">
-                                                    <a href="product-detail.html">Organic Cabbage</a>
-                                                </h3>
-                                                <div class="product_price">
-                                                    <span class="sale_price pe-1">$50.00</span>
-                                                    <del>$65.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-4">
-                                    <div class="product_layout_1 overflow-hidden position-relative">
-                                        <div class="product_layout_content bg-white position-relative">
-                                            <div class="product_image_wrap">
-                                                <a class="product_image d-flex justify-content-center align-items-center" href="product-detail.html">
-                                                    <img src="assets/images/product/product11.png" alt="image_not_found">
-                                                </a>
-                                                <ul class="product_badge_group ul_li_block">
-                                                    <li><span class="product_badge badge_meats position-absolute rounded-pill text-uppercase">Meats</span>
-                                                    </li>
-                                                    <li><span class="product_badge badge_discount position-absolute rounded-pill">-27%</span>
-                                                    </li>
-                                                </ul>
-                                                <ul class="product_action_btns ul_li_block d-flex">
-                                                    <li><a class="tooltips" data-placement="top" title="Search Product" href="#!"><i class="fas fa-search"></i></a></li>
-                                                    <li><a class="tooltips" data-placement="top" title="Add To Cart" href="#product_quick_view" data-bs-toggle="modal"><i class="fas fa-shopping-bag"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="rating_wrap d-flex">
-                                                <ul class="rating_star ul_li">
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                </ul>
-                                                <span class="shop_review_text">( 4.0 )</span>
-                                            </div>
-                                            <div class="product_content">
-                                                <h3 class="product_title">
-                                                    <a href="product-detail.html">Organic Cabbage</a>
-                                                </h3>
-                                                <div class="product_price">
-                                                    <span class="sale_price pe-1">$50.00</span>
-                                                    <del>$65.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-4">
-                                    <div class="product_layout_1 overflow-hidden position-relative">
-                                        <div class="product_layout_content bg-white position-relative">
-                                            <div class="product_image_wrap">
-                                                <a class="product_image d-flex justify-content-center align-items-center" href="product-detail.html">
-                                                    <img src="assets/images/product/product12.png" alt="image_not_found">
-                                                </a>
-                                                <ul class="product_badge_group ul_li_block">
-                                                    <li><span class="product_badge badge_meats position-absolute rounded-pill text-uppercase">Meats</span>
-                                                    </li>
-                                                    <li><span class="product_badge badge_discount position-absolute rounded-pill">-27%</span>
-                                                    </li>
-                                                </ul>
-                                                <ul class="product_action_btns ul_li_block d-flex">
-                                                    <li><a class="tooltips" data-placement="top" title="Search Product" href="#!"><i class="fas fa-search"></i></a></li>
-                                                    <li><a class="tooltips" data-placement="top" title="Add To Cart" href="#product_quick_view" data-bs-toggle="modal"><i class="fas fa-shopping-bag"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="rating_wrap d-flex">
-                                                <ul class="rating_star ul_li">
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                </ul>
-                                                <span class="shop_review_text">( 4.0 )</span>
-                                            </div>
-                                            <div class="product_content">
-                                                <h3 class="product_title">
-                                                    <a href="product-detail.html">Organic Cabbage</a>
-                                                </h3>
-                                                <div class="product_price">
-                                                    <span class="sale_price pe-1">$50.00</span>
-                                                    <del>$65.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-4">
-                                    <div class="product_layout_1 overflow-hidden position-relative">
-                                        <div class="product_layout_content bg-white position-relative">
-                                            <div class="product_image_wrap">
-                                                <a class="product_image d-flex justify-content-center align-items-center" href="product-detail.html">
-                                                    <img src="assets/images/product/product9.png" alt="image_not_found">
-                                                </a>
-                                                <ul class="product_badge_group ul_li_block">
-                                                    <li><span class="product_badge badge_meats position-absolute rounded-pill text-uppercase">Meats</span>
-                                                    </li>
-                                                    <li><span class="product_badge badge_discount position-absolute rounded-pill">-27%</span>
-                                                    </li>
-                                                </ul>
-                                                <ul class="product_action_btns ul_li_block d-flex">
-                                                    <li><a class="tooltips" data-placement="top" title="Search Product" href="#!"><i class="fas fa-search"></i></a></li>
-                                                    <li><a class="tooltips" data-placement="top" title="Add To Cart" href="#product_quick_view" data-bs-toggle="modal"><i class="fas fa-shopping-bag"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="rating_wrap d-flex">
-                                                <ul class="rating_star ul_li">
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                </ul>
-                                                <span class="shop_review_text">( 4.0 )</span>
-                                            </div>
-                                            <div class="product_content">
-                                                <h3 class="product_title">
-                                                    <a href="product-detail.html">Organic Cabbage</a>
-                                                </h3>
-                                                <div class="product_price">
-                                                    <span class="sale_price pe-1">$50.00</span>
-                                                    <del>$65.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-4">
-                                    <div class="product_layout_1 overflow-hidden position-relative">
-                                        <div class="product_layout_content bg-white position-relative">
-                                            <div class="product_image_wrap">
-                                                <a class="product_image d-flex justify-content-center align-items-center" href="product-detail.html">
-                                                    <img src="assets/images/product/product10.png" alt="image_not_found">
-                                                </a>
-                                                <ul class="product_badge_group ul_li_block">
-                                                    <li><span class="product_badge badge_meats position-absolute rounded-pill text-uppercase">Meats</span>
-                                                    </li>
-                                                    <li><span class="product_badge badge_discount position-absolute rounded-pill">-27%</span>
-                                                    </li>
-                                                </ul>
-                                                <ul class="product_action_btns ul_li_block d-flex">
-                                                    <li><a class="tooltips" data-placement="top" title="Search Product" href="#!"><i class="fas fa-search"></i></a></li>
-                                                    <li><a class="tooltips" data-placement="top" title="Add To Cart" href="#product_quick_view" data-bs-toggle="modal"><i class="fas fa-shopping-bag"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="rating_wrap d-flex">
-                                                <ul class="rating_star ul_li">
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li class="active"><i class="fas fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                </ul>
-                                                <span class="shop_review_text">( 4.0 )</span>
-                                            </div>
-                                            <div class="product_content">
-                                                <h3 class="product_title">
-                                                    <a href="product-detail.html">Organic Cabbage</a>
-                                                </h3>
-                                                <div class="product_price">
-                                                    <span class="sale_price pe-1">$50.00</span>
-                                                    <del>$65.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- view recently products end -->
-
-        <!-- quick-view start -->
-
-        <div class="modal fade quick_view" id="product_quick_view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content position-relative">
-                    <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
-                    <div class="modal-body p-0">
-                        <div class="container-fluid-full product10_wrap sec_space_small" style="background-image: url(assets/images/backgrounds/bg17.png)">
-                            <div class="row justify-content-center p-5">
-                                <div class="col-lg-6">
-                                    <div class="product10_thumb_content d-flex flex-column">
-                                        <div class="product11_slide_item">
-                                            <div class="d-flex justify-content-center align-items-center position-relative overflow-hidden">
-                                                <img src="assets/images/product/product40.png" alt="image_not_found">
-                                            </div>
-                                            <div class="d-flex justify-content-center align-items-center position-relative overflow-hidden">
-                                                <img src="assets/images/product/product40.png" alt="image_not_found">
-                                            </div>
-                                            <div class="d-flex justify-content-center align-items-center position-relative overflow-hidden">
-                                                <img src="assets/images/product/product40.png" alt="image_not_found">
-                                            </div>
-                                        </div>
-
-                                        <div class="product10_thumb_item product11_slide_thumb">
-                                            <div class="thumb_item">
-                                                <a href="#!"><img src="assets/images/product/product6.png" alt="image_not_found"></a>
-                                            </div>
-                                            <div class="thumb_item">
-                                                <a href="#!"><img src="assets/images/product/product8.png" alt="image_not_found"></a>
-                                            </div>
-                                            <div class="thumb_item">
-                                                <a href="#!"><img src="assets/images/product/product23.png" alt="image_not_found"></a>
-                                            </div>
-                                            <div class="thumb_item">
-                                                <a href="#!"><img src="assets/images/product/product6.png" alt="image_not_found"></a>
-                                            </div>
-                                            <div class="thumb_item">
-                                                <a href="#!"><img src="assets/images/product/product8.png" alt="image_not_found"></a>
-                                            </div>
-                                            <div class="thumb_item">
-                                                <a href="#!"><img src="assets/images/product/product23.png" alt="image_not_found"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="rating_wrap d-flex justify-content-between">
-                                        <div class="rating_review_cont d-flex d-flex align-items-center">
-                                            <ul class="rating_star ul_li">
-                                                <li class="active"><i class="fas fa-star"></i></li>
-                                                <li class="active"><i class="fas fa-star"></i></li>
-                                                <li class="active"><i class="fas fa-star"></i></li>
-                                                <li class="active"><i class="fas fa-star"></i></li>
-                                                <li><i class="far fa-star"></i></li>
-                                            </ul>
-                                            <a href="#!" class="review">Read 3 Reviews</a>
-                                        </div>
-                                        <div class="product_btn">
-                                            <a href="#"><button type="button" class="btn custom_btn rounded-pill px-4 text-white">Smoothies</button></a>
-                                        </div>
-                                    </div>
-                                    <h2 class="product_detail_title">Good Organic Products</h2>
-                                    <p class="product_detail_desc py-2">Morbi eget congue lectus. Donec eleifend
-                                        ultricies urna et euismod. Sed consectetur tellus eget odio aliquet, vel
-                                        vestibulum tellus sollicitudin. Morbi maximus metus eu eros tincidunt, vitae
-                                        mollis ante imperdiet. Nulla imperdiet at mauris ut posuere. Nam at ultrices
-                                        justo.</p>
-                                    <div class="product10_quantity_btn_wrap d-flex align-items-center">
-                                        <div class="quantity_input bg-white">
-                                            <form action="#">
-                                                <span class="input_number_decrement">–</span>
-                                                <input class="input_number" value="2KG">
-                                                <span class="input_number_increment">+</span>
-                                            </form>
-                                        </div>
-                                        <a href="#"><button type="button" class="btn custom_btn rounded-pill ms-3 px-5 py-3 text-white">Order Now
-                                                <i class="fas fa-long-arrow-alt-right"></i></button></a>
-                                    </div>
-                                    <div class="product_tags_wrap d-flex align-items-center mt-5">
-                                        <h6 class="product_tags_title text-uppercase">tags:</h6>
-                                        <div class="tags_item d-flex align-items-center">
-                                            <a href="#!">T-shirt,</a>
-                                            <a class="ms-1" href="#!">Clothes,</a>
-                                            <a class="ms-1" href="#!">Fashion,</a>
-                                            <a class="ms-1" href="#!">Shop</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_social_links d-flex align-items-center">
-                                        <h6 class="product_social_title text-uppercase">share:</h6>
-                                        <ul class="list-unstyled d-flex mb-0">
-                                            <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
-                                            <li><a href="#!"><i class="fab fa-pinterest-p"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- quick-view end -->
 
     </div>
     <!-- body wrap end -->
-
+    <?php include("./footer.php") ?>
     <!-- Include jquery js -->
     <script src="assets/js/jquery.min.js"></script>
 
@@ -660,3 +322,6 @@ if (isset($_POST['code'])) {
 </body>
 
 </html>
+
+
+

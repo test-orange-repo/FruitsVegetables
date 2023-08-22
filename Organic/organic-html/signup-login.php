@@ -6,6 +6,7 @@ include('./process_pages/database.php');
 
 session_start();
 
+unset($_SESSION['errMsg']);
 
 function checkUserExistence($conn, $uname, $uemail, $uphone)
 {
@@ -125,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 											} else {
 												echo "sign-in";
 											}
-											session_destroy();
+											unset($_SESSION['user_id']);
 											?>">
 		<!-- FORM SECTION -->
 		<div class="row">
@@ -158,11 +159,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<input type="email" placeholder="Email" name="email" id="email">
 							</div>
 							<div class="input-group">
-								<input type="password" placeholder="Password" name="password" id="password">
+								<input type="password" placeholder="Password" name="password" id="password" class="password">
 								<i class="fa-solid fa-eye eye-pass"></i>
 							</div>
 							<div class="input-group">
-								<input type="password" placeholder="Confirm password" name="confirmPassword" id="confPassword">
+								<input type="password" placeholder="Confirm password" name="confirmPassword" id="confPassword" class="password">
 								<i class="fa-solid fa-eye eye-pass"></i>
 							</div>
 							<div class="input-group">
@@ -204,7 +205,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</div>
 							<div class="input-group">
 								<i class='bx bxs-lock-alt'></i>
-								<input type="password" placeholder="Password" name="loginPassword">
+								<input type="password" placeholder="Password" name="loginPassword" class="password">
+								<i class="fa-solid fa-eye eye-pass"></i>
 							</div>
 							<input type="hidden" name="from_cart" value="<?php echo $from_cart; ?>">
 							<button>

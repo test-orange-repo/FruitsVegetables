@@ -5,7 +5,7 @@ include('./process_pages/database.php');
 session_start();
 if (isset($_SESSION["user_id"])) {
     $user_id = $_SESSION["user_id"];
-    $stmt = $conn->prepare("SELECT addresses.first_name, addresses.last_name, addresses.address, addresses.city, addresses.postcode, addresses.region, addresses.phone FROM addresses INNER JOIN users ON addresses.user_id = '" . $_SESSION["user_id"] ."'");
+    $stmt = $conn->prepare("SELECT addresses.first_name, addresses.last_name, addresses.address, addresses.city, addresses.postcode, addresses.region, addresses.phone FROM addresses INNER JOIN users ON addresses.user_id = '" . $_SESSION["user_id"] . "'");
     $stmt->execute();
     $result = $stmt->get_result();
     // $address = $result->fetch_assoc();
@@ -100,13 +100,19 @@ if (isset($_SESSION["user_id"])) {
                         <div class="billing">
                             <h3 class="form_title mb_30" style="display: inline-block;">Billing details</h3>
                             <div class="addresses" style="display: inline-block;">
-                                <select name="" id="" style="display: inline-block;">
-                                    <option value="">Choose an address</option>
+                                <select name="" id="" style="display: inline-block; overflow:scroll" id="" class="selectAddress">
+                                    <option value="0"></option>Choose an address</option>
                                     <?php
+                                    $cnt = 1;
                                     while ($address = $result->fetch_assoc()) {
+                                        $city = $address["city"];
+                                        $region = $address["region"];
                                         $addressValue = $address["address"];
+                                        $phone = $address["phone"];
+                                        $postcode = $address["postcode"];
                                         if ($addressValue) {
-                                            echo "<option>$addressValue</option>";
+                                            echo "<option>" . "Address " . $cnt . "</option>";
+                                            $cnt++;
                                         }
                                     }
                                     ?>
@@ -114,105 +120,112 @@ if (isset($_SESSION["user_id"])) {
                                 </select>
                             </div>
                         </div>
-                        <form action="./placeOrder.php" method="POST">
+                        <?php
+                        if (isset($_SESSION["user_id"])) {
+                            $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = $user_id");
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $user = $result->fetch_assoc();
+                        }
+                        ?>
+                        <form action="./placeOrder.php" method="POST" id="addressForm">
                             <div class="form_wrap">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form_item">
                                             <span class="input_title">First Name<sup>*</sup></span>
-                                            <input type="text" name="firstname">
+                                            <input type="text" class="fname" name="firstname" required value="<?= isset($_SESSION["user_id"]) ? $user["first_name"] : ""; ?>">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6">
                                         <div class="form_item">
                                             <span class="input_title">Last Name<sup>*</sup></span>
-                                            <input type="text" name="lastname">
+                                            <input type="text" class="lname" name="lastname" required value="<?= isset($_SESSION["user_id"]) ? $user["last_name"] : ""; ?>">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form_item">
                                     <span class="input_title">Address<sup>*</sup></span>
-                                    <input type="text" name="address" placeholder="House number and street name">
+                                    <input type="text" name="address" class="address" placeholder="House number and street name" required>
                                 </div>
 
                                 <div class="form_item">
                                     <span class="input_title">Town/City<sup>*</sup></span>
-                                    <input type="text" name="city">
+                                    <input type="text" class="city" name="city" required>
                                 </div>
 
                                 <div class="form_item">
                                     <span class="input_title">Postcode / Zip<sup>*</sup></span>
-                                    <input type="text" name="postcode">
+                                    <input type="text" class="postcode" name="postcode" required>
                                 </div>
 
                                 <div class="form_item">
                                     <span class="input_title">Region<sup>*</sup></span>
-                                    <input type="text" name="region">
+                                    <input type="text" class="region" name="region" required>
                                 </div>
 
                                 <div class="form_item">
                                     <span class="input_title">Phone<sup>*</sup></span>
-                                    <input type="tel" name="phone">
+                                    <input type="tel" class="phone" name="phone" required value="<?= isset($_SESSION["user_id"]) ?  0 . $user["user_phone"] : ""; ?>">
                                 </div>
 
                                 <hr>
 
                             </div>
-                        
+
                     </div>
                     <div class="billing_form" data-aos="fade-up" data-aos-duration="2000">
                         <h3 class="form_title mb_30">Your order</h3>
 
-                            <div class="form_wrap">
-                                <div class="checkout_table table-responsive">
-                                    <table class="table text-center mb_50">
-                                        <thead class="text-uppercase text-uppercase">
-                                            <tr>
-                                                <th>Product Name</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
+                        <div class="form_wrap">
+                            <div class="checkout_table table-responsive">
+                                <table class="table text-center mb_50">
+                                    <thead class="text-uppercase text-uppercase">
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
 
-                                            $cartSubTotal = 0;
-                                            // $query = "SELECT  users.* , cartproduct.*, cart.*
-                                            //             FROM cart 
-                                            //             INNER JOIN cartproduct ON cart.cart_id = cartproduct.cart_id 
-                                            //             INNER JOIN users ON cart.user_id = users.user_id";
+                                        $cartSubTotal = 0;
+                                        // $query = "SELECT  users.* , cartproduct.*, cart.*
+                                        //             FROM cart 
+                                        //             INNER JOIN cartproduct ON cart.cart_id = cartproduct.cart_id 
+                                        //             INNER JOIN users ON cart.user_id = users.user_id";
 
-                                            // $cart = mysqli_query($conn, $query);                                            
-                                            // while($record = mysqli_fetch_array($cart)){
+                                        // $cart = mysqli_query($conn, $query);                                            
+                                        // while($record = mysqli_fetch_array($cart)){
 
-                                            $query1 = "SELECT cart.*, users.*
+                                        $query1 = "SELECT cart.*, users.*
                                                         FROM cart 
-                                                        INNER JOIN users ON cart.user_id = users.user_id";// we have to get the user id from the SESSION*******
-                                            $cart = mysqli_query($conn, $query1);
+                                                        INNER JOIN users ON cart.user_id = users.user_id"; // we have to get the user id from the SESSION*******
+                                        $cart = mysqli_query($conn, $query1);
 
-                                            $query2 = "SELECT cart.*, cartproduct.*
+                                        $query2 = "SELECT cart.*, cartproduct.*
                                                         FROM cart 
                                                         INNER JOIN cartproduct ON cart.cart_id  = cartproduct.cart_id ";
-                                            $cartP = mysqli_query($conn, $query2);           
-                                            ///////////////////////////////////////////
-                                            $query3 = "SELECT products.*, cartproduct.*
+                                        $cartP = mysqli_query($conn, $query2);
+                                        ///////////////////////////////////////////
+                                        $query3 = "SELECT products.*, cartproduct.*
                                                         FROM products 
-                                                        INNER JOIN cartproduct ON products.product_id  = cartproduct.product_id ";           
-                                            $cartProduct = mysqli_query($conn, $query3);
+                                                        INNER JOIN cartproduct ON products.product_id  = cartproduct.product_id ";
+                                        $cartProduct = mysqli_query($conn, $query3);
 
-                                            
 
-                                            while($record = mysqli_fetch_array($cartProduct)){
-                                            ?>
+
+                                        while ($record = mysqli_fetch_array($cartProduct)) {
+                                        ?>
                                             <tr>
                                                 <td>
                                                     <div class="cart_product">
                                                         <div class="item_image">
-                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($record['product_image']); ?>"
-                                                                alt="image_not_found">
+                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($record['product_image']); ?>" alt="image_not_found">
                                                         </div>
                                                         <div class="item_content">
                                                             <h4 class="item_title mb_0"><?php echo $record["product_name"]; ?></h4>
@@ -220,66 +233,65 @@ if (isset($_SESSION["user_id"])) {
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="price_text"><?php echo $record["product_price"]. ' JOD'; ?></span>
+                                                    <span class="price_text"><?php echo $record["product_price"] . ' JOD'; ?></span>
                                                 </td>
                                                 <td>
                                                     <span class="quantity_text"><?php echo $record["product_quantity"]; ?></span>
                                                 </td>
-                                                <td><span class="total_price"><?php echo $record["product_price"] *$record["product_quantity"]; ?></span></td>
-                                                <?php $cartSubTotal += $record["product_price"] *$record["product_quantity"] ?>
+                                                <td><span class="total_price"><?php echo $record["product_price"] * $record["product_quantity"]; ?></span></td>
+                                                <?php $cartSubTotal += $record["product_price"] * $record["product_quantity"] ?>
                                             </tr>
-                                            <?php } ?>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <span class="subtotal_text">Subtotal</span>
-                                                </td>
-                                                <td><span class="total_price"><?php echo $cartSubTotal ?></span></td>
-                                            </tr>
+                                        <?php } ?>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span class="subtotal_text">Subtotal</span>
+                                            </td>
+                                            <td><span class="total_price"><?php echo $cartSubTotal ?></span></td>
+                                        </tr>
 
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <span class="subtotal_text">Shipping Fees</span>
-                                                </td> 
-                                                <td class="text-left" style="padding-left: 150px">
-                                                    <div class="checkbox_item mb_15">
-                                                        <label for="flatrate_checkbox"><input id="flatrate_checkbox"
-                                                                type="checkbox"> 2 JOD</label>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span class="subtotal_text">Shipping Fees</span>
+                                            </td>
+                                            <td class="text-left" style="padding-left: 150px">
+                                                <div class="checkbox_item mb_15">
+                                                    <label for="flatrate_checkbox"><input id="flatrate_checkbox" type="checkbox"> 2 JOD</label>
+                                                </div>
+                                            </td>
+                                        </tr>
 
-                                            <tr>
-                                                <td class="text-left">
-                                                    <span class="subtotal_text">TOTAL</span>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <span class="total_price"><?php echo $cartSubTotal + 2 .' JOD' ?></span>                                                    
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div class="billing_payment_mathod">
-                                    <ul class="ul_li_block clearfix">
-                                        <li>
-                                            <div class="checkbox_item mb_0 pl-0">
-                                                <label for="cash_delivery"><input id="cash_delivery" type="checkbox">
-                                                    Cash On Delivery</label>
-                                            </div>
-                                        </li>
-                                
-                                    </ul>
-                                    <button type="submit" class="custom_btn ">PLACE ORDER</button>
-                                    <?php $cartProduct = 0; ?>
-                                </div>
+                                        <tr>
+                                            <td class="text-left">
+                                                <span class="subtotal_text">TOTAL</span>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span class="total_price"><?php echo $cartSubTotal + 2 . ' JOD' ?></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
+
+                            <div class="billing_payment_mathod">
+                                <ul class="ul_li_block clearfix">
+                                    <li>
+                                        <div class="checkbox_item mb_0 pl-0">
+                                            <label for="cash_delivery"><input id="cash_delivery" type="checkbox">
+                                                Cash On Delivery</label>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                                <button type="submit" class="custom_btn ">PLACE ORDER</button>
+                                <?php $cartProduct = 0; ?>
+                            </div>
+                        </div>
                         </form>
                     </div>
                 </div>
@@ -689,3 +701,60 @@ if (isset($_SESSION["user_id"])) {
 </body>
 
 </html>
+
+<?php
+$user_id = $_SESSION["user_id"];
+$stmt = $conn->prepare("SELECT first_name, last_name, address, city, postcode, region, phone FROM addresses WHERE user_id = ?");
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$addresses = [];
+
+while ($row = $result->fetch_assoc()) {
+    $addresses[] = $row;
+}
+?>
+
+<script>
+    // Get address select box
+    let selectAddress = document.querySelector('select.selectAddress');
+    // get all inputs
+    let fname = document.querySelector('form#addressForm input.fname');
+    let lname = document.querySelector('form#addressForm input.lname');
+    let address = document.querySelector('form#addressForm input.address');
+    let city = document.querySelector('form#addressForm input.city');
+    let postcode = document.querySelector('form#addressForm input.postcode');
+    let region = document.querySelector('form#addressForm input.region');
+    let phone = document.querySelector('form#addressForm input.phone');
+    
+    // Save address info array in a variable
+    let userAddressInfo = <?php echo json_encode($addresses); ?>;
+
+    // change the value of the inputs if the user chooses an address
+    selectAddress.onchange = () => {
+        if(selectAddress.value != "0") {
+            let indx = selectAddress.selectedIndex;
+            console.log(userAddressInfo[indx - 1]);
+            fname.value = userAddressInfo[indx - 1]["first_name"];
+            lname.value = userAddressInfo[indx - 1]["last_name"];
+            address.value = userAddressInfo[indx - 1]["address"];
+            city.value = userAddressInfo[indx - 1]["city"];
+            city.value = userAddressInfo[indx - 1]["city"];
+            postcode.value = userAddressInfo[indx - 1]["postcode"];
+            region.value = userAddressInfo[indx - 1]["region"];
+            phone.value = "0" + userAddressInfo[indx - 1]["phone"];
+        }
+        else {
+            let indx = selectAddress.selectedIndex;
+            console.log(userAddressInfo[indx - 1]);
+            fname.value = <?php echo json_encode($user["first_name"]); ?>;
+            lname.value = <?php echo json_encode($user["last_name"]); ?>;
+            address.value = '';
+            city.value = '';
+            city.value = '';
+            postcode.value = '';
+            region.value = '';
+            phone.value = "0" + <?php echo json_encode($user["user_phone"]);?>;
+        }
+    }
+</script>

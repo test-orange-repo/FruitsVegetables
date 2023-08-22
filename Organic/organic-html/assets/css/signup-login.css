@@ -389,7 +389,7 @@ body {
     border-radius: 5px;
 }
 
-.sign-up .input-group .fa-eye {
+.input-group .fa-eye {
     position: absolute;
     cursor: pointer;
     left: 266px;

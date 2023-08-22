@@ -1,81 +1,61 @@
-<?php 
+<?php
 
-if(isset($_GET['minusid'])){
-    $id=$_GET['minusid'];
-    session_start();
+session_start();
+
+include('./process_pages/database.php');
+
+// Initialize $quantity
+$quantity = 0;
+
+
+// Handle minus
+if (isset($_GET['minusid'])) {
+    $id = $_GET['minusid'];
     if (isset($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as &$item) {
-            if ($item['productID'] === $id) {
-                if($item['quantity']==1){
-                    break;
-                   }
-                $item['quantity']--; 
+        foreach ($_SESSION['cart'] as $key => &$item) {
+            if ($item['productID'] == $id) {
 
-                break; 
+                if ($item['quantity'] == 1) {
+                    unset($_SESSION['cart'][$key]);
+                } else {
+                    $item['quantity']--;
+                    $quantity = $item['quantity'];
+                }
             }
         }
-        unset($item); 
-        header('Location: ./cart.php'); 
+
+        // Update database if $quantity > 0
+        if ($quantity > 0) {
+            $sql = "UPDATE cartproduct SET product_quantity = $quantity WHERE product_id = $id";
+            $result = $conn->query($sql);
+        } else {
+            // If quantity becomes 0, you might want to remove the product from the database
+            $sql = "DELETE FROM cartproduct WHERE product_id = $id";
+            $result = $conn->query($sql);
+        }
+
+        header('Location: ./cart.php');
+        exit(); // Make sure to exit after the redirect
     }
-
-
-else {
-    $id = $_GET['minusid']; 
-    try{
-    $query = "SELECT quantity FROM cart WHERE productid = $id";
-    $result = $pdo->prepare($query);
-    $result->execute();
-
-    $quantityData = $result->fetch(PDO::FETCH_ASSOC);
-    if ($quantityData) {
-        $quantity = $quantityData['quantity'];
-        $qty= --$quantity;
-        $PDOupdate = "UPDATE cart SET quantity='$qty' WHERE productid=$id";
-        $statement = $pdo->prepare($PDOupdate);
-        $statement->execute();
-    } 
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
 }
-header('Location: ./cart.php'); 
-}}
 
-
-else if(isset($_GET['plusid'])){
-    $id=$_GET['plusid'];
-    session_start();
+// Handle Plus
+else if (isset($_GET['plusid'])) {
+    $id = $_GET['plusid'];
     if (isset($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as &$item) {
-            if ($item['productID'] === $id) {
-                $item['quantity']++; 
-                break; 
+        foreach ($_SESSION['cart'] as $key => &$item) {
+            if ($item['productID'] == $id) {
+
+                $item['quantity']++;
+                $quantity = $item['quantity'];
             }
         }
-        unset($item); 
-        header('Location: ./cart.php'); 
+
+        $sql = "UPDATE cartproduct SET product_quantity = $quantity WHERE product_id = $id";
+        $result = $conn->query($sql);
+
+
+        header('Location: ./cart.php');
+        exit();
     }
-
-
-else{
-    $id = $_GET['plusid']; 
-    try{
-    $query = "SELECT quantity FROM cart WHERE productID = $id";
-    $result = $pdo->prepare($query);
-    $result->execute();
-
-    $quantityData = $result->fetch(PDO::FETCH_ASSOC);
-    if ($quantityData) {
-        $quantity = $quantityData['quantity'];
-        $qty= ++$quantity;
-
-
-        $PDOupdate = "UPDATE cart SET quantity='$qty' WHERE productid=$id";
-        $statement = $pdo->prepare($PDOupdate);
-        $statement->execute();
-    } 
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
 }
-header('Location: ./cart.php'); 
-}}
-?>

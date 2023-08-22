@@ -1,27 +1,43 @@
 <?php
+
+include('./process_pages/database.php');
 session_start();
 
-if(isset($_GET['delid'])) {
-    $product_id = $_GET['delid'];
+if (isset($_GET['delid'])) {
+    $id = $_GET['delid'];
 
-    // Loop through the cart array and find the item to remove
-    foreach ($_SESSION['cart'] as $key => $item) {
-        if ($item['productID'] == $product_id) {
-            // Remove the item from the cart array
-            unset($_SESSION['cart'][$key]);
-            break; // Exit the loop once the item is found and removed
+
+    if (isset($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $key => $product) {
+            if ($product['productID'] == $id) {
+                unset($_SESSION['cart'][$key]);
+                break;
+            }
         }
+        header("Location: ./cart.php");
     }
 
-    // Optional: Reindex the array to maintain sequential keys
-    $_SESSION['cart'] = array_values($_SESSION['cart']);
-}
 
-echo "<pre>";
-print_r($_SESSION["cart"]);
-echo "</pre>";
+    if(isset($_SESSION['user_id'])){
+    $user_id = $_SESSION['user_id'];
+    $sql = "SELECT cart_id FROM cart WHERE user_id = '$user_id'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $cartId = $row['cart_id'];
 
-// Redirect back to the cart page
-header('Location: ./cart.php');
-exit();
+    $deleteQuery = "DELETE FROM cartproduct WHERE cart_id = '$cartId' AND product_id = '$id'";
+    $deleteResult = mysqli_query($conn, $deleteQuery);
+
+    if ($deleteResult) {
+
+        header("Location: ./cart.php");
+        exit();
+
+
+    } else {
+
+        echo "Error deleting product from cart.";
+    }
+
+}}
 ?>

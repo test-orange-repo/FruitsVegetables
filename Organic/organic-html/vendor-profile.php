@@ -17,7 +17,7 @@ include('./process_pages/database.php');
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vendor Profile V.1 - Organic - Food E-commerce HTML Template</title>
+  <title>Organic</title>
   <!-- favicon icon -->
   <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon" />
 
@@ -292,66 +292,67 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.23/dist/sweetalert2.min.css
             </div>
           </div>
         </div>
-        <div class="billing_form container" data-aos="fade-up" data-aos-duration="2000">
-          <h3 class="form_title mb_30">Your Orders</h3>
-          <form action="./placeOrder.php">
-            <div class="form_wrap">
-              <div class="checkout_table table-responsive">
-                <table class="table text-center mb_50">
-                  <thead class="text-uppercase text-uppercase">
-                    <tr>
-                      <th>Order Number</th>
-                      <th>Order Address</th>
-                      <th>Order Status</th>
-                      <th>Order Total Price</th>
-                      <th>View More Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    $user_id = $_SESSION["user_id"];
-                    $query1 = "SELECT orders.*, orderitems.*
-                                                        FROM orders 
-                                                        INNER JOIN orderitems ON orderitems.order_id = orders.order_id
-                                                        WHERE orders.user_id = $user_id";
-                    $orders = mysqli_query($conn, $query1);
+        
+        <?php
+$user_id = $_SESSION["user_id"];
 
+$sql = "SELECT * from orders WHERE user_id = $user_id";
+$result = mysqli_query($conn, $sql);
 
-                    while ($record = mysqli_fetch_array($orders)) {
-                    ?>
-                      <tr>
-                        <td>
-                          <?php echo $record['order_id']; ?>
-                        </td>
-                        <td>
-                          <span class="price_text"><?php echo $record["order_address"]; ?></span>
-                        </td>
-                        <td>
-                          <span class="quantity_text"><?php echo $record["order_stutes"]; ?></span>
-                        </td>
-                        <td>
-                          <span class="quantity_text"><?php echo $record["order_totalamount"]; ?></span>
-                        </td>
-                        <td>
-                          <ul class="btns_group ul_li" style="justify-content: center; -webkit-box-pack: center;">
-                            <li style="width:25%; height: 5%">
-                              <a class="circle-container" href="./viewOrdersToUser.php?order_id=<?php echo $record["order_id"]; ?>" style="border: 0px">
-                                <i class="fas fa-columns position-relative " data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                </i>
-                              </a>
+if ($result) {
+    if (mysqli_num_rows($result) > 0) {
+        echo '<div class="billing_form container" data-aos="fade-up" data-aos-duration="2000" style="padding-top: 35px;">
+                <h3 class="form_title mb_30">Your Orders</h3>
+                <div class="form_wrap">
+                    <div class="checkout_table table-responsive">
+                        <table class="table text-center mb_50">
+                            <thead class="text-uppercase text-uppercase">
+                                <tr>
+                                    <th>Order Number</th>
+                                    <th>Order Address</th>
+                                    <th>Order Status</th>
+                                    <th>Order Total Price</th>
+                                    <th>View More Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>';
+
+        $query1 = "SELECT orders.*, orderitems.*
+                    FROM orders 
+                    INNER JOIN orderitems ON orderitems.order_id = orders.order_id
+                    WHERE orders.user_id = $user_id";
+        $orders = mysqli_query($conn, $query1);
+
+        while ($record = mysqli_fetch_array($orders)) {
+            echo '<tr>
+                    <td>' . $record['order_id'] . '</td>
+                    <td><span class="price_text">' . $record["order_address"] . '</span></td>
+                    <td><span class="quantity_text">' . $record["order_stutes"] . '</span></td>
+                    <td><span class="quantity_text">' . $record["order_totalamount"] . '</span></td>
+                    <td>
+                        <ul class="btns_group ul_li" style="justify-content: center; -webkit-box-pack: center;">
+                            <li style="width: 25%; height: 5%;">
+                                <a class="circle-container" href="./viewOrdersToUser.php?order_id=' . $record["order_id"] . '" style="border: 0px;">
+                                    <i class="fas fa-columns position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+                                </a>
                             </li>
+                        </ul>
+                    </td>
+                  </tr>';
+        }
 
-                          </ul>
-                        </td>
-                      </tr>
-                    <?php } ?>
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </form>
+        echo '</tbody>
+            </table>
         </div>
+    </div>
+</div>';
+    }
+    else {
+      echo '<div style="display:flex; justify-content:center; margin-top: 15px"><a style="color:red" href="./index-4.php"><button class ="custom_btn">Shop Now</button></a></div>';
+    }
+}
+?>
+
       </div>
 
 
@@ -359,9 +360,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.23/dist/sweetalert2.min.css
 
     <!-- vendor profile end -->
 
-    
 
-   
+
+
   </div>
   <!-- main body end -->
 

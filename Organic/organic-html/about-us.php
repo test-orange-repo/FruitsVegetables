@@ -298,7 +298,7 @@
                                                 <img class="rounded-pill" src="assets/images/team/noor.png"
                                                     class="card-img-top" alt="team2">
                                                 <div class="card-body team_author_content">
-                                                    <h5 class="card-title team_author_title">Noor Oudat</h5>
+                                                    <h5 class="card-title team_author_title">Nooraldeen Aloudat</h5>
                                                     <div class="card-text team_author_post py-2"></div>
                                                     <div
                                                         class="team_author_social_link d-flex justify-content-center justify-content-around align-items-center">

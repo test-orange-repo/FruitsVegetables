@@ -1,5 +1,7 @@
 <?php
+
 include('./process_pages/database.php');
+
 
 $category_id = $_GET['category_id'];
 
@@ -174,10 +176,12 @@ $productsQuery = mysqli_query($conn, "SELECT * FROM products WHERE category_id =
                 <ul class="product_action_btns ul_li_block d-flex">
                     <li>
                         <a class="tooltips" data-placement="top" title="Search Product" href="product-detail.php?id=' . $row["product_id"] . '">
-                        <i class="fa-solid fa-eye fa-lg" style="color: #080808;"></i>
+                        <i class="fa-solid fa-eye fa-lg"></i>
                         </a>
                     </li>
-                    <li><a class="tooltips" data-placement="top" title="Add To Cart" href="./cart.php?id=' . $row["product_id"] . '"><i class="fas fa-shopping-bag"></i></a></li>
+                    <form method="post" action="./add_to_cart.php?id=' . $row["product_id"] . '">
+                    <li><button type="submit" name="submit1" ><a class="tooltips" data-placement="top"><i class="fas fa-shopping-bag fa-lg"></i></a></button></li>
+                    </form>
                 </ul>
             </div>
             <div class="rating_wrap d-flex">
