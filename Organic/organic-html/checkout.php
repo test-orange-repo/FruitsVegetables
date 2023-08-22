@@ -272,7 +272,7 @@ if (isset($_SESSION["user_id"])) {
                                                 <td>
                                                     <span class="total_price">
                                                         <del><?php echo $cartSubTotal + 2 .' JOD' ?></del><br>
-                                                        <?php echo $recordcart['cart_totalprice'] ?>
+                                                        <?php echo $recordcart['cart_totalprice'] + 2 .' JOD' ?>
                                                     </span>                                                    
                                                 </td>
                                             </tr>
