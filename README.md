@@ -1,9 +1,9 @@
-Discover farm-fresh goodness on our e-commerce platform – a colorful selection of ripe fruits and crisp vegetables, conveniently delivered to your doorstep.
+<h2>Discover farm-fresh goodness on our e-commerce platform – a colorful selection of ripe fruits and crisp vegetables, conveniently delivered to your doorstep.</h2>
 
 technologies we used are HTMI, CSS, JS, PHP and SQL
 
 Our team:
-1)Mohammad alghzawi (SM), Nooraldeen aloudat(PO), Marah abusaleh, Lenna alrababah, Serren qamhieh, Shatha rababa
+Mohammad alghzawi (SM) <br> Nooraldeen aloudat(PO) <br> Marah abusaleh <br> Lenna alrababah <br> Serren qamhieh <br> Shatha rababa
 
 
 <div>https://trello.com/b/MMizJhW9/fruitsvegetables</div>
