@@ -93,7 +93,7 @@ if (isset($_SESSION["user_id"])) {
                                             <div class="collapse navbar-collapse justify-content-center " id="navbarSupportedContent">
                                                 <ul class="navbar-nav navbar_4 main_menu_list after_navbar">
                                                     <li class="nav-item nav_item_has_child px-2 dropdown">
-                                                        <a class="nav-link" href="./index-4.php" id="home_submenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
+                                                        <a class="nav-link" href="./index-4.php" id="home_submenu" role="button" aria-expanded="false">Home</a>
 
                                                     </li>
                                                     <li class="nav-item nav_item_has_child px-2 dropdown">

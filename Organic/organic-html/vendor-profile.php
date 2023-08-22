@@ -277,7 +277,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.23/dist/sweetalert2.min.css
                   </div>
                   <div class="inpt">
                     <label for="">Photo</label>
-                    <input type="file" name="image" disabled>
+                    <input type="file" name="image" disabled accept="image/*">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </div>
                   <div class="btns">
@@ -314,13 +314,15 @@ if ($result) {
                             </thead>
                             <tbody>';
 
+        $sql = "SELECT * FROM orders WHERE user_id = $user_id";
+        $ordersNumber = mysqli_query($conn, $sql);
         $query1 = "SELECT orders.*, orderitems.*
                     FROM orders 
                     INNER JOIN orderitems ON orderitems.order_id = orders.order_id
                     WHERE orders.user_id = $user_id";
         $orders = mysqli_query($conn, $query1);
 
-        while ($record = mysqli_fetch_array($orders)) {
+        while ($record = mysqli_fetch_array($ordersNumber)) {
             echo '<tr>
                     <td>' . $record['order_id'] . '</td>
                     <td><span class="price_text">' . $record["order_address"] . '</span></td>
