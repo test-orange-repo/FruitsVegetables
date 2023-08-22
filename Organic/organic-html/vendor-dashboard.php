@@ -1,6 +1,13 @@
 <?php
 
+include('./process_pages/database.php');
+
 session_start();
+
+$_SESSION['admin_logged'] = 0;
+
+$admin = mysqli_query($conn, "SELECT * FROM admins");
+$adminInfo = mysqli_fetch_array($admin);
 
 // Check if the user is logged in
 if (!isset($_SESSION['admin_logged'])) {
@@ -10,10 +17,9 @@ if (!isset($_SESSION['admin_logged'])) {
 }
 
 // If admin_logged is 0, redirect to restricted access page
-if ($_SESSION['admin_logged'] == 0) {
-   header("Location: notAdmin.php");
+if (($_SESSION['admin_logged'] == 0) && ($adminInfo['is_loggedIn'] == '0')) {
+   header("Location: ./notAdmin.php");
    exit();
- 
 }
 
 ?>
@@ -104,7 +110,7 @@ if ($_SESSION['admin_logged'] == 0) {
                         <p class="mail_icon"><span><i class="far fa-envelope text-white pe-2"></i></span></p>
                         
                         <?php
-                           include('./process_pages/database.php');
+                           
                            $admin = mysqli_query($conn, "SELECT * FROM admins");
                            $adminInfo = mysqli_fetch_array($admin);
                            
@@ -504,7 +510,6 @@ if ($_SESSION['admin_logged'] == 0) {
                                              <th>Product Name</th>
                                              <th>Product Description</th>
                                              <th>Product Price</th>
-                                             <th style="padding: 0px">Product Quantity</th>
                                              <th>Category Name</th>
                                              <th>Edit/Delete</th>
                                           </tr>
@@ -524,7 +529,6 @@ if ($_SESSION['admin_logged'] == 0) {
                                                       <td><?php echo $record["product_name"]; ?></td>
                                                       <td><?php echo $record["product_description"]; ?></td>                                
                                                       <td><?php echo $record["product_price"]. ' JOD'; ?></td>
-                                                      <td style="padding: 1px"><?php echo $record["product_quantity"]; ?></td>
                                                       <td><?php echo $record["category_name"]; ?></td>
                                                       <td>
                                                          <ul class="btns_group ul_li">
@@ -881,7 +885,6 @@ if ($_SESSION['admin_logged'] == 0) {
                                  <ul class="btns_group ul_li">
                                     <li>
                                        <?php
-                                          include('./database.php');
                                           $admin = mysqli_query($conn, "SELECT * FROM admins");
                                           $adminInfo = mysqli_fetch_array($admin);
                                           

@@ -1,7 +1,3 @@
-<?php
-
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +28,7 @@
         }
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = " ./signup-login.php"; 
+                window.location.href = "./signup-login.php"; 
             }
         });
 </script>

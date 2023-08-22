@@ -1,5 +1,6 @@
 <?php
-include('./database.php');
+
+include('../process_pages/database.php');
 
 session_start();
 
@@ -10,12 +11,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["loginEmail"];
     $password = $_POST["loginPassword"];
 
+    //Admin Login
+    $_SESSION['admin_logged'] = 0;
     $admin = mysqli_query($conn, "SELECT * FROM admins");
     $adminInfo = mysqli_fetch_array($admin);
 
 
     if ($email == $adminInfo["admin_email"] && $password == $adminInfo["admin_password"]) {
-        $_SESSION['admin_logged'] = 1;
         mysqli_query($conn, "UPDATE admins SET is_loggedIn = '1'");
         header('Location: ../vendor-dashboard.php');
         exit();

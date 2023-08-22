@@ -1,6 +1,6 @@
 <?php
 
-include('../database.php');
+include('../process_pages/database.php');
 
 $result = mysqli_query($conn, "SELECT * FROM admins WHERE admin_id = '" . $_GET['admin_id'] . "' ");
 $record = mysqli_fetch_array($result);
