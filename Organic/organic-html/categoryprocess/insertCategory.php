@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <title>Add Category</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nicecss@2.1.0/dist/nice.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="shortcut icon" href="assets/images/logo/logo3.png" type="image/x-icon">
 <style>
     body {
         display: flex;

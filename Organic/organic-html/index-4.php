@@ -13,7 +13,7 @@ include('./process_pages/database.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organic</title>
+    <title>Organic - HomePage</title>
     <!-- favicon icon -->
     <link rel="shortcut icon" href="assets/images/logo/logo3.png" type="image/x-icon">
 

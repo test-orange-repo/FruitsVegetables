@@ -10,10 +10,10 @@ include('./process_pages/database.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organic</title>
+    <title>Product Details</title>
     <!-- favicon icon -->
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
-
+    <link rel="shortcut icon" href="assets/images/logo/logo3.png" type="image/x-icon">
+    
     <!-- Include fontawesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
@@ -63,9 +63,8 @@ include('./process_pages/database.php');
                         </div>
                         <ul
                             class="list-unstyled breadcrumb_item d-flex justify-content-center align-items-center text-white">
-                            <li><a href="index.html"><i class="fas fa-home active"></i>Home</a></li>
-                            <li><i class="fas fa-chevron-right"></i>About</li>
-                            <li><i class="fas fa-chevron-right"></i>Dried</li>
+                            <li><a href="./index-4.php"><i class="fas fa-home active"></i>Home</a></li>
+                            <li><i class="fas fa-chevron-right"></i>Product Details</li>
                         </ul>
                     </div>
                 </div>
