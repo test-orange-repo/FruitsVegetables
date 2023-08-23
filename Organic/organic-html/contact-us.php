@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         $mail->Username   = 'leenaalrababah@gmail.com';                     //SMTP username
-        $mail->Password   = 'ezjrcpslawvkafhc';                               //SMTP password
+        $mail->Password   = 'qbtmlyrgohmzrxlw';                               //SMTP password
 
         //Recipients
         $mail->setFrom($email, $fname);
