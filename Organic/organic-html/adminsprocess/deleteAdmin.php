@@ -1,4 +1,5 @@
 <?php
+
 include('../process_pages/database.php');
 
 if(isset($_GET["admin_id"])){

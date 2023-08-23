@@ -35,8 +35,6 @@ if(count($_POST) > 0){
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

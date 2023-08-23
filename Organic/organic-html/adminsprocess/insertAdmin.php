@@ -1,5 +1,4 @@
 <?php
-
 include('../process_pages/database.php');
 
 // Process form data

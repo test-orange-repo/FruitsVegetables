@@ -3,6 +3,7 @@ include('./process_pages/database.php');
 
 session_start();
 
+
 if (isset($_SESSION['user_id'])) {
     $userID = $_SESSION['user_id'];
 

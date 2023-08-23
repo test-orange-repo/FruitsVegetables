@@ -6,7 +6,6 @@ include('./process_pages/database.php');
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,6 +1,7 @@
 <?php
 include 'includes/head-vars.php';
 
+
 if ($_SESSION['user_id']) {
 
     $userID = $_SESSION['user_id'];

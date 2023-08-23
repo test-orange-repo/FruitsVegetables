@@ -4,6 +4,7 @@
 // Start sign up
 include('./process_pages/database.php');
 
+
 session_start();
 
 unset($_SESSION['errMsg']);

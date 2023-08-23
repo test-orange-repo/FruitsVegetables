@@ -254,7 +254,6 @@ $totalComments = $row['total'];
 <?php 
 
 
-
 $comments = "SELECT * FROM comment WHERE `product_id`=$product_id";
 $result = mysqli_query($conn, $comments);
 

@@ -27,7 +27,7 @@ if(isset($_GET["order_id"])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/images/logo/logo3.png" type="image/x-icon">
-    <title>Delete Order</title>
+    <title>Delete Order </title>
 </head>
 <body>
     

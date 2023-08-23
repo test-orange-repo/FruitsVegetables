@@ -148,6 +148,7 @@ if (isset($_POST['code'])) {
 
                                                     $totalPrice += $subTotalSignleproduct;
 
+                                                    
                                                     echo '<tr>
                                             <td class="thumbnail"><a href="product-details.php">
                                                     <img style="width:150px" src="data:image/webp;base64,' .

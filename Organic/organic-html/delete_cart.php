@@ -3,6 +3,7 @@
 include('./process_pages/database.php');
 session_start();
 
+
 if (isset($_GET['delid'])) {
     $id = $_GET['delid'];
 

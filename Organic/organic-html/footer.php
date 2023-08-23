@@ -16,6 +16,7 @@
                             </ul>
                         </div>
                     </div>
+                    
                     <div class="footer_inner_content sec_space_xs_70">
                         <div class="footer_inner_content_wrap">
                             <div class="row">

@@ -125,7 +125,7 @@
                                     <div class="total_price">
                                         <ul class="ul_li_block mb_30 clearfix">
                                             <li>
-                                                <span>Subtotal:</span>
+                                                <span>Subtotal: </span>
                                                 <span>$215</span>
                                             </li>
                                             <li>

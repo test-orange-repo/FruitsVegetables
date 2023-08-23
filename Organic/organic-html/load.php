@@ -25,6 +25,7 @@ if (isset($_GET['minusid'])) {
             break;
         }
 
+        
         // Update database if $quantity > 0
         if ($quantity > 0) {
             $sql = "UPDATE cartproduct SET product_quantity = $quantity WHERE product_id = $id";

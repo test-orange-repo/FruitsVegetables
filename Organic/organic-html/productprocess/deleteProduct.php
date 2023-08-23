@@ -8,7 +8,6 @@ if(isset($_GET["product_id"])){
     // SQL query to delete data based on ID
     $sql = "DELETE FROM `products` WHERE product_id='$id'";
 
-    
     // mysqli_query($conn, $sql);
     $result = mysqli_query($conn, $sql);
 

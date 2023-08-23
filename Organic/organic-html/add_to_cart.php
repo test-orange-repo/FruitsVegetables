@@ -2,6 +2,7 @@
 
 include('./process_pages/database.php');
 
+
 session_start();
 
 $totalPrice = 0;

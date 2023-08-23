@@ -2,7 +2,6 @@
 
 include('./process_pages/database.php');
 
-
 $result = mysqli_query($conn, "SELECT * FROM admins");
 $record = mysqli_fetch_array($result);
 
