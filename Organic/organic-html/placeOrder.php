@@ -77,8 +77,8 @@ function checkAddressExistence($conn, $first_name, $last_name, $address, $city, 
 function destroyCart($conn, $user_id)
 {
     $query = "DELETE cartproduct FROM cartproduct
-          INNER JOIN cart ON cartproduct.cart_id = cart.cart_id
-          WHERE cart.user_id = $user_id";
+                INNER JOIN cart ON cartproduct.cart_id = cart.cart_id
+                WHERE cart.user_id = $user_id";
 
     mysqli_query($conn, $query);
 

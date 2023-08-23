@@ -112,7 +112,7 @@ if (isset($_POST['code'])) {
                             <thead class="text-uppercase">
                                 <tr>
                                     <th>photo</th>
-                                    <th>product name</th>
+                                    <th>product name</thuser_idsession>
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
