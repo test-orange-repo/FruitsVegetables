@@ -229,9 +229,9 @@ $productsQuery = mysqli_query($conn, "SELECT * FROM products WHERE category_id =
 
     </main>
     <!-- main body end -->
-
-    <!-- include 'footer.php'; -->
-
+<?php
+    include 'footer.php';
+?>
 
 
 

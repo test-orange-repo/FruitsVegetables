@@ -436,15 +436,12 @@ if (mysqli_num_rows($result) > 0) {
     echo '</div>'; // Close the row g-4 div
 }
 ?>
-
-
-  
-
-      
-
+<br><br>
     </div>
 
-
+<?php
+    include 'footer.php';
+?>
     <!-- body wrap end -->
 
     <!-- Include jquery js -->
