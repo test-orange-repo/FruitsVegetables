@@ -76,10 +76,10 @@ if (isset($_SESSION["user_id"])) {
                 <div class="container">
                     <div class="top_inner_content about_inner_cont d-flex justify-content-between align-items-center border-start border-top border-end">
                         <div class="top_inner_logo d-flex justify-content-between align-items-center">
-                            <a class="drop_bars text-dark px-1 py-1" href="#!" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" aria-expanded="false" aria-label="Toggle navigation">
+                            <a class="drop_bars text-dark px-1 py-1 d-lg-none d-md-none" href="#!" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" aria-expanded="false" aria-label="Toggle navigation">
                                 <i class="fas fa-bars"></i>
                             </a>
-                            <a class="logo px-sm-4 py-3 border-end border-start" href="./index-4.php">
+                            <a class="logo px-sm-4 py-3 " href="./index-4.php">
                                 <img src="assets/images/logo/logo.png" alt="image_not_found">
                             </a>
                         </div>
@@ -119,11 +119,11 @@ if (isset($_SESSION["user_id"])) {
                                                     </div>
                                                 </div>
                                                 <ul class="settings_options ul_li_block clearfix">
-                                                    <li><a href="<?php if($flag) {
-                                                        echo "./vendor-profile.php";
-                                                    } else {
-                                                        echo './signup-login.php';
-                                                    } ?>"><i class="fas fa-user-circle"></i>
+                                                    <li><a href="<?php if ($flag) {
+                                                                        echo "./vendor-profile.php";
+                                                                    } else {
+                                                                        echo './signup-login.php';
+                                                                    } ?>"><i class="fas fa-user-circle"></i>
                                                             Profile</a></li>
 
                                                     <li><a href="<?php
@@ -133,9 +133,9 @@ if (isset($_SESSION["user_id"])) {
                                                                         echo "./signup-login.php";
                                                                     }
                                                                     ?>">
-                                                                    <i class="fas fa-sign-out-alt"></i>
+                                                            <i class="fas fa-sign-out-alt"></i>
                                                             <?php
-                                                            if($flag) {
+                                                            if ($flag) {
                                                                 echo "Logout";
                                                             } else {
                                                                 echo "Login";
@@ -181,7 +181,7 @@ if (isset($_SESSION["user_id"])) {
                                         </div>
                                     </div>
                                 </li>
-                                <li class="nav-item pe-4 dropdown">
+                                <li class="nav-item pe-4 ">
                                     <a class="nav-link" href="./about-us.php" id="blog_submenu" role="button" aria-expanded="false">About us</a>
 
                                 </li>
@@ -195,31 +195,18 @@ if (isset($_SESSION["user_id"])) {
                     </div>
                 </div>
             </div>
-            <!-- collapse search - start -->
-            <div class="main_search_collapse collapse" id="main_search_collapse">
-                <div class="main_search_form position-relative card">
-                    <div class="container">
-                        <form action="#">
-                            <div class="form_item position-relative">
-                                <input type="search" class="form-control rounded-pill py-3" name="search" placeholder="Search Your Product...">
-                                <button type="submit" class="submit_btn"><i class="fas fa-search"></i></button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- collapse search - end -->
+
         </div>
         <!-- top inner navbar end -->
 
         <!-- bottom header start -->
-        <div class="header_bottom_main header_border position-relative d-none d-lg-block">
-            <div class="container">
+        <div class="header_bottom_main header_border position-relative d-none d-lg-block" style="position: sticky;">
+            <div class="container" style="position: sticky;">
                 <nav class="navbar navbar-expand-lg navbar-light border p-0">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse border-end justify-content-center" id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse border-end justify-content-center " id="navbarSupportedContent">
                         <ul class="navbar-nav navbar_4 main_menu_list after_navbar">
                             <li class="nav-item nav_item_has_child px-2 dropdown">
                                 <a class="nav-link active" aria-current="page" href="./index-4.php" id="home_submenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
@@ -264,4 +251,3 @@ if (isset($_SESSION["user_id"])) {
 </body>
 
 </html>
-
